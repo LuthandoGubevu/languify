@@ -150,7 +150,7 @@ export function ComprehensionExamClient() {
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
-                <h1 className="text-2xl font-bold font-headline">Grade 12 English FAL P1</h1>
+                <h1 className="text-2xl font-bold font-headline">Grade 12 English FAL P1 2024</h1>
                 <p className="text-muted-foreground">Question {step} of {TOTAL_QUESTIONS}</p>
               </div>
               <div className="flex items-center gap-2 text-lg font-semibold text-primary p-2 border rounded-md">

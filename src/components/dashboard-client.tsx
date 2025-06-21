@@ -8,7 +8,7 @@ import { BookOpen, ArrowRight, Eye } from 'lucide-react';
 import type { PracticePaper } from '@/lib/types';
 
 const mockPapers: PracticePaper[] = [
-  { id: 'comprehension', title: 'Grade 12 English FAL P1', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/exam/comprehension' },
+  { id: 'comprehension', title: 'Grade 12 English FAL P1 2024', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/exam/comprehension' },
 ];
 
 const getStatusVariant = (status: PracticePaper['status']) => {
