@@ -23,7 +23,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-body antialiased min-h-screen bg-background text-foreground">
+      <body className="font-body antialiased min-h-screen bg-background text-foreground flex flex-col">
         <Header />
         <main className="flex-1">{children}</main>
         <Toaster />

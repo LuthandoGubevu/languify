@@ -40,7 +40,7 @@ export function FeedbackClient({ examId }: { examId: string }) {
   const feedback = mockFeedback;
 
   return (
-    <div className="container mx-auto p-4 md:p-8 max-w-4xl">
+    <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold font-headline">Feedback for: {exam.title}</h1>
         <p className="text-muted-foreground">Review your performance and read the tutor's comments to improve.</p>

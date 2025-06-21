@@ -100,7 +100,7 @@ export function ExamClient({ examId }: { examId: string }) {
   const currentQuestion = exam.questions[currentQuestionIndex];
 
   return (
-    <div className="container mx-auto p-4 md:p-8 max-w-4xl">
+    <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="bg-card p-6 rounded-lg shadow-sm mb-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
