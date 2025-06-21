@@ -7,6 +7,7 @@ export interface PracticePaper {
   status: PracticePaperStatus;
   score?: number;
   totalQuestions: number;
+  path?: string;
 }
 
 export type QuestionType = 'multiple-choice' | 'essay';

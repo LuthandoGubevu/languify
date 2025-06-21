@@ -10,6 +10,7 @@ import type { PracticePaper } from '@/lib/types';
 const mockPapers: PracticePaper[] = [
   { id: '1', title: 'IELTS Academic Writing Task 1', description: 'Practice describing charts and graphs.', status: 'Completed', score: 85, totalQuestions: 1 },
   { id: '2', title: 'TOEFL Reading Comprehension', description: 'Read academic passages and answer questions.', status: 'In Progress', totalQuestions: 3 },
+  { id: 'comprehension', title: 'Grade 12 English FAL P1', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/exam/comprehension' },
   { id: '3', title: 'General English Grammar Test', description: 'Test your knowledge of core English grammar.', status: 'Not Started', totalQuestions: 50 },
   { id: '4', title: 'Advanced Speaking Prompts', description: 'Prepare for complex speaking topics.', status: 'Not Started', totalQuestions: 10 },
 ];
@@ -69,7 +70,7 @@ export function DashboardClient() {
                     <Eye className="mr-2 h-4 w-4" /> View Feedback
                   </Link>
                 ) : (
-                  <Link href={`/exam/${paper.id}`}>
+                  <Link href={paper.path || `/exam/${paper.id}`}>
                     {paper.status === 'In Progress' ? 'Continue' : 'Start Exam'}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
