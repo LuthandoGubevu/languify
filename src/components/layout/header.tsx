@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, BookText } from 'lucide-react';
 
 export function Header() {
@@ -17,6 +17,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="pr-0">
+              <SheetTitle className="sr-only">Menu</SheetTitle>
               <Link href="/" className="flex items-center space-x-2 mb-6">
                 <BookText className="h-6 w-6 text-primary" />
                 <span className="font-bold font-headline">Languify</span>
