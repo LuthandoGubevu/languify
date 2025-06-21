@@ -8,11 +8,7 @@ import { BookOpen, ArrowRight, Eye } from 'lucide-react';
 import type { PracticePaper } from '@/lib/types';
 
 const mockPapers: PracticePaper[] = [
-  { id: '1', title: 'IELTS Academic Writing Task 1', description: 'Practice describing charts and graphs.', status: 'Completed', score: 85, totalQuestions: 1 },
-  { id: '2', title: 'TOEFL Reading Comprehension', description: 'Read academic passages and answer questions.', status: 'In Progress', totalQuestions: 3 },
   { id: 'comprehension', title: 'Grade 12 English FAL P1', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/exam/comprehension' },
-  { id: '3', title: 'General English Grammar Test', description: 'Test your knowledge of core English grammar.', status: 'Not Started', totalQuestions: 50 },
-  { id: '4', title: 'Advanced Speaking Prompts', description: 'Prepare for complex speaking topics.', status: 'Not Started', totalQuestions: 10 },
 ];
 
 const getStatusVariant = (status: PracticePaper['status']) => {
@@ -29,12 +25,12 @@ export function DashboardClient() {
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold font-headline">Student Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here are your available practice papers.</p>
+        <p className="text-muted-foreground">Welcome back! Here is your available practice paper.</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex justify-center">
         {mockPapers.map((paper) => (
-          <Card key={paper.id} className="flex flex-col">
+          <Card key={paper.id} className="flex flex-col w-full max-w-md">
             <CardHeader>
               <div className="flex justify-between items-start">
                   <div className="space-y-1">
