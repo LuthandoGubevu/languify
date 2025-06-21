@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { BookOpen, ArrowRight, Eye } from 'lucide-react';
+import { BookOpen, ArrowRight, Eye, UserCog } from 'lucide-react';
 import type { PracticePaper } from '@/lib/types';
 
 const mockPapers: PracticePaper[] = [
@@ -23,9 +23,17 @@ const getStatusVariant = (status: PracticePaper['status']) => {
 export function DashboardClient() {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Student Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here is your available practice paper.</p>
+      <div className="mb-8 flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold font-headline">Student Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back! Here is your available practice paper.</p>
+        </div>
+        <Button asChild variant="outline">
+          <Link href="/admin">
+            <UserCog className="mr-2 h-4 w-4" />
+            Admin View
+          </Link>
+        </Button>
       </div>
 
       <div className="flex justify-center">
