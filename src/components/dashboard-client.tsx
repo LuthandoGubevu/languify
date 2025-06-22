@@ -136,7 +136,7 @@ export function DashboardClient() {
                                     <p className="font-semibold">{session.title}</p>
                                     <p className="text-sm text-indigo-100">{new Date(session.date).toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' })}</p>
                                 </div>
-                                <Badge variant={session.status === 'Confirmed' ? 'default' : 'secondary'} className="bg-emerald-500/80">{session.status}</Badge>
+                                <Badge variant={session.status === 'Confirmed' ? 'default' : 'secondary'} className="bg-emerald text-white">{session.status}</Badge>
                             </div>
                         ))}
                     </CardContent>
@@ -162,7 +162,7 @@ export function DashboardClient() {
                                    <p className="font-semibold">{fb.paper}</p>
                                    <p className="text-sm text-indigo-100">Score: {fb.score}%</p>
                                </div>
-                               <Badge variant={fb.status === 'New' ? 'destructive' : 'outline'} className="bg-rose-500 text-white">{fb.status}</Badge>
+                               <Badge variant={fb.status === 'New' ? 'destructive' : 'outline'}>{fb.status}</Badge>
                            </div>
                        ))}
                     </CardContent>
