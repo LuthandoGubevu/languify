@@ -128,10 +128,10 @@ export function Grade12P1Client() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-2xl">SECTION A: COMPREHENSION</CardTitle>
-            <CardDescription>Read the following passage carefully and then answer the questions.</CardDescription>
+            <CardDescription className="text-foreground">Read the following passage carefully and then answer the questions.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="prose max-w-none text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+            <div className="max-w-none text-foreground whitespace-pre-wrap text-sm leading-relaxed">
                 {comprehensionText}
             </div>
             <Button onClick={handleStartExam} size="lg" className="w-full md:w-auto">Start Questions</Button>
