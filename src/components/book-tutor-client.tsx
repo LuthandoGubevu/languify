@@ -53,7 +53,7 @@ export function BookTutorClient() {
       </div>
 
       <div className="grid gap-8 md:grid-cols-2">
-        <Card>
+        <Card className="border-none shadow-none">
           <CardHeader>
             <CardTitle>Booking Form</CardTitle>
             <CardDescription>Fill out the form to request a session.</CardDescription>
