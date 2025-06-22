@@ -8,6 +8,7 @@ export interface PracticePaper {
   score?: number;
   totalQuestions: number;
   path: string;
+  progress?: number;
 }
 
 export type QuestionType = 'multiple-choice' | 'essay';
@@ -44,4 +45,20 @@ export interface Course {
     description: string;
     price: string;
     href: string;
+    progress?: number;
+}
+
+export interface TutorSession {
+    id: string;
+    title: string;
+    date: string;
+    status: 'Confirmed' | 'Pending';
+}
+
+export interface Notification {
+    id: number;
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    time: string;
 }

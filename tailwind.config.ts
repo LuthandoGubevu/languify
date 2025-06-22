@@ -55,6 +55,9 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        'electric-blue': '#6366F1',
+        'neon-purple': '#A855F7',
+        emerald: '#10B981',
         chart: {
           '1': 'hsl(var(--chart-1))',
           '2': 'hsl(var(--chart-2))',

@@ -22,7 +22,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive('/dashboard')}>
+            <SidebarMenuButton asChild isActive={isActive('/dashboard')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
               <Link href="/dashboard">
                 <Home />
                 <span>Dashboard</span>
@@ -30,7 +30,7 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-          <Accordion type="multiple" className="w-full px-2">
+          <Accordion type="multiple" defaultValue={["grade-12"]} className="w-full px-2">
             <AccordionItem value="grade-11" className="border-none">
               <AccordionTrigger className="w-full hover:no-underline rounded-md hover:bg-sidebar-accent p-2 justify-start gap-2 text-sm [&[data-state=open]>svg]:rotate-90">
                 <GraduationCap className="h-4 w-4 shrink-0" />
@@ -61,7 +61,7 @@ export function AppSidebar() {
           </Accordion>
 
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive('/courses')}>
+            <SidebarMenuButton asChild isActive={isActive('/courses')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
               <Link href="/courses">
                 <BookOpenCheck />
                 <span>Courses</span>
@@ -70,7 +70,7 @@ export function AppSidebar() {
           </SidebarMenuItem>
 
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive('/book-tutor')}>
+            <SidebarMenuButton asChild isActive={isActive('/book-tutor')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
               <Link href="/book-tutor">
                 <Calendar />
                 <span>Book a Tutor</span>
