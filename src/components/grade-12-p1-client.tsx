@@ -40,7 +40,7 @@ const questions = [
 const TOTAL_QUESTIONS = questions.length;
 const EXAM_DURATION = 60 * 60; // 60 minutes in seconds
 
-export function ComprehensionExamClient() {
+export function Grade12P1Client() {
   const router = useRouter();
   const { toast } = useToast();
   const [step, setStep] = useState(0); // 0 is intro, 1-15 are questions
@@ -113,7 +113,7 @@ export function ComprehensionExamClient() {
       }
     }
     localStorage.removeItem('comprehensionAnswers');
-    router.push('/exam/comprehension/submitted');
+    router.push('/grade-12/english-p1/submitted');
   };
 
   const formatTime = (seconds: number) => {

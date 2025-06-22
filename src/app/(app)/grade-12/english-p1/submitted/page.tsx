@@ -5,7 +5,7 @@ import { CheckCircle } from 'lucide-react';
 
 export default function SubmissionConfirmationPage() {
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-theme(spacing.24))] p-4">
+    <div className="flex items-center justify-center min-h-full p-4">
       <Card className="w-full max-w-md text-center">
         <CardHeader>
           <CardTitle className="flex flex-col items-center gap-4">

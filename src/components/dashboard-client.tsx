@@ -8,7 +8,9 @@ import { BookOpen, ArrowRight, Eye } from 'lucide-react';
 import type { PracticePaper } from '@/lib/types';
 
 const mockPapers: PracticePaper[] = [
-  { id: 'comprehension', title: 'Grade 12 English FAL P1 2024', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/exam/comprehension' },
+  { id: 'p1-2024', title: 'Grade 12 English FAL P1 2024', description: 'Section A: Comprehension practice.', status: 'Not Started', totalQuestions: 14, path: '/grade-12/english-p1' },
+  { id: 'p2-2024', title: 'Grade 12 English FAL P2 2024', description: 'Poetry and Literature analysis.', status: 'Not Started', totalQuestions: 20, path: '/grade-12/english-p2' },
+  { id: 'p3-2024', title: 'Grade 12 English FAL P3 2024', description: 'Creative and transactional writing.', status: 'Not Started', totalQuestions: 10, path: '/grade-12/english-p3' },
 ];
 
 const getStatusVariant = (status: PracticePaper['status']) => {
@@ -25,12 +27,12 @@ export function DashboardClient() {
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
         <h1 className="text-3xl font-bold font-headline">Student Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here is your available practice paper.</p>
+        <p className="text-muted-foreground">Welcome back! Here are your available practice papers.</p>
       </div>
 
-      <div className="flex justify-center">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {mockPapers.map((paper) => (
-          <Card key={paper.id} className="flex flex-col w-full max-w-md">
+          <Card key={paper.id} className="flex flex-col">
             <CardHeader>
               <div className="flex justify-between items-start">
                   <div className="space-y-1">
@@ -66,7 +68,7 @@ export function DashboardClient() {
                     <Eye className="mr-2 h-4 w-4" /> View Feedback
                   </Link>
                 ) : (
-                  <Link href={paper.path || `/exam/${paper.id}`}>
+                  <Link href={paper.path}>
                     {paper.status === 'In Progress' ? 'Continue' : 'Start Exam'}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

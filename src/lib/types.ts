@@ -7,7 +7,7 @@ export interface PracticePaper {
   status: PracticePaperStatus;
   score?: number;
   totalQuestions: number;
-  path?: string;
+  path: string;
 }
 
 export type QuestionType = 'multiple-choice' | 'essay';
@@ -36,4 +36,12 @@ export interface Feedback {
     tutorComment: string;
     score: number;
   }[];
+}
+
+export interface Course {
+    id: string;
+    title: string;
+    description: string;
+    price: string;
+    href: string;
 }
