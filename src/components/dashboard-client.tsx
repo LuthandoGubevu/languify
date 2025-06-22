@@ -74,9 +74,9 @@ export function DashboardClient() {
             
             {/* Exam Progress */}
             <motion.div variants={cardVariants} whileHover="hover">
-                <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg">
+                <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white">
                     <CardHeader className="flex-row items-center gap-4">
-                        <div className="p-3 bg-primary/10 rounded-lg"><Pencil className="h-6 w-6 text-primary" /></div>
+                        <div className="p-3 bg-white/20 rounded-lg"><Pencil className="h-6 w-6 text-white" /></div>
                         <CardTitle className="font-headline">Exam Progress</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow space-y-4">
@@ -84,12 +84,14 @@ export function DashboardClient() {
                            <div key={paper.id}>
                                <div className="flex justify-between items-center mb-1">
                                    <p className="font-semibold text-sm">{paper.title}</p>
-                                   <span className="text-xs text-muted-foreground">{paper.progress}%</span>
+                                   <span className="text-xs text-indigo-100">{paper.progress}%</span>
                                </div>
-                               <Progress value={paper.progress} />
-                               <Button variant="link" size="sm" asChild className="p-0 h-auto mt-1"><Link href={paper.path}>
-                               {paper.status === 'Not Started' ? 'Start Exam' : 'Continue'} <ArrowRight className="ml-1 h-3 w-3"/>
-                               </Link></Button>
+                               <Progress value={paper.progress} className="[&>div]:bg-white [&]:bg-white/30" />
+                               <Button variant="link" size="sm" asChild className="p-0 h-auto mt-1 text-white hover:text-indigo-200">
+                                <Link href={paper.path}>
+                                    {paper.status === 'Not Started' ? 'Start Exam' : 'Continue'} <ArrowRight className="ml-1 h-3 w-3"/>
+                                </Link>
+                               </Button>
                            </div>
                        ))}
                     </CardContent>
@@ -98,22 +100,22 @@ export function DashboardClient() {
 
             {/* Courses In Progress */}
             <motion.div variants={cardVariants} whileHover="hover">
-                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg">
+                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white">
                     <CardHeader className="flex-row items-center gap-4">
-                        <div className="p-3 bg-emerald-500/10 rounded-lg"><BookOpenCheck className="h-6 w-6 text-emerald-500" /></div>
+                        <div className="p-3 bg-white/20 rounded-lg"><BookOpenCheck className="h-6 w-6 text-white" /></div>
                         <CardTitle className="font-headline">Courses</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
                         {mockCourses.map(course => (
                             <div key={course.id}>
                                <p className="font-semibold">{course.title}</p>
-                               <p className="text-sm text-muted-foreground mb-2">Next: Module 3</p>
-                               <Progress value={course.progress} className="[&>*]:bg-emerald-500" />
+                               <p className="text-sm text-indigo-100 mb-2">Next: Module 3</p>
+                               <Progress value={course.progress} className="[&>div]:bg-white [&]:bg-white/30" />
                             </div>
                         ))}
                     </CardContent>
                     <CardFooter>
-                       <Button variant="secondary" className="w-full">
+                       <Button variant="ghost" className="w-full bg-white/20 hover:bg-white/30 text-white">
                            Continue Course <ArrowRight className="ml-2 h-4 w-4"/>
                        </Button>
                     </CardFooter>
@@ -122,9 +124,9 @@ export function DashboardClient() {
 
             {/* Upcoming Tutor Sessions */}
             <motion.div variants={cardVariants} whileHover="hover">
-                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg">
+                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white">
                     <CardHeader className="flex-row items-center gap-4">
-                       <div className="p-3 bg-amber-500/10 rounded-lg"><Calendar className="h-6 w-6 text-amber-500" /></div>
+                       <div className="p-3 bg-white/20 rounded-lg"><Calendar className="h-6 w-6 text-white" /></div>
                         <CardTitle className="font-headline">Tutor Sessions</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
@@ -132,14 +134,14 @@ export function DashboardClient() {
                             <div key={session.id} className="flex justify-between items-center">
                                 <div>
                                     <p className="font-semibold">{session.title}</p>
-                                    <p className="text-sm text-muted-foreground">{new Date(session.date).toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' })}</p>
+                                    <p className="text-sm text-indigo-100">{new Date(session.date).toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' })}</p>
                                 </div>
                                 <Badge variant={session.status === 'Confirmed' ? 'default' : 'secondary'} className="bg-emerald-500/80">{session.status}</Badge>
                             </div>
                         ))}
                     </CardContent>
                     <CardFooter>
-                        <Button variant="secondary" className="w-full">
+                        <Button variant="ghost" className="w-full bg-white/20 hover:bg-white/30 text-white">
                            Reschedule or Join <ArrowRight className="ml-2 h-4 w-4"/>
                         </Button>
                     </CardFooter>
@@ -148,9 +150,9 @@ export function DashboardClient() {
 
             {/* Recent Feedback */}
             <motion.div variants={cardVariants} whileHover="hover">
-                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg">
+                 <Card className="h-full flex flex-col rounded-2xl shadow-md transition-shadow hover:shadow-lg bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white">
                     <CardHeader className="flex-row items-center gap-4">
-                        <div className="p-3 bg-rose-500/10 rounded-lg"><MessageSquare className="h-6 w-6 text-rose-500" /></div>
+                        <div className="p-3 bg-white/20 rounded-lg"><MessageSquare className="h-6 w-6 text-white" /></div>
                         <CardTitle className="font-headline">Recent Feedback</CardTitle>
                     </CardHeader>
                     <CardContent className="flex-grow">
@@ -158,14 +160,14 @@ export function DashboardClient() {
                            <div key={fb.id} className="flex justify-between items-center">
                                <div>
                                    <p className="font-semibold">{fb.paper}</p>
-                                   <p className="text-sm text-muted-foreground">Score: {fb.score}%</p>
+                                   <p className="text-sm text-indigo-100">Score: {fb.score}%</p>
                                </div>
                                <Badge variant={fb.status === 'New' ? 'destructive' : 'outline'} className="bg-rose-500 text-white">{fb.status}</Badge>
                            </div>
                        ))}
                     </CardContent>
                      <CardFooter>
-                        <Button variant="secondary" className="w-full">
+                        <Button variant="ghost" className="w-full bg-white/20 hover:bg-white/30 text-white">
                            View Feedback <ArrowRight className="ml-2 h-4 w-4"/>
                         </Button>
                     </CardFooter>
