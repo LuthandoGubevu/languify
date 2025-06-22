@@ -7,9 +7,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Clock, ChevronLeft, ChevronRight, BookText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
 const comprehensionText = `
 The words artificial intelligence (AI) seem to be on the tip of everyone's tongue lately. Once the subject of science fiction fantasies, AI is now a reality that is reshaping our world in profound ways. From the algorithms that recommend our next movie to the complex systems that can diagnose diseases, AI is fast becoming one of the most important technologies of our time. At its core, artificial intelligence is a branch of computer science that aims to create machines capable of intelligent behaviour. This includes learning, reasoning, problem-solving, perception, and language understanding.
@@ -153,9 +154,27 @@ export function Grade12P1Client() {
                 <h1 className="text-2xl font-bold font-headline">Grade 12 English FAL P1 2024</h1>
                 <p className="text-muted-foreground">Question {step} of {TOTAL_QUESTIONS}</p>
               </div>
-              <div className="flex items-center gap-2 text-lg font-semibold text-primary p-2 border rounded-md">
-                <Clock className="h-5 w-5" />
-                <span>{formatTime(timeLeft)}</span>
+              <div className="flex items-center gap-4">
+                <Sheet>
+                  <SheetTrigger asChild>
+                    <Button variant="outline">
+                      <BookText className="mr-2 h-4 w-4" />
+                      View Passage
+                    </Button>
+                  </SheetTrigger>
+                  <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
+                    <SheetHeader>
+                      <SheetTitle>Comprehension Passage</SheetTitle>
+                    </SheetHeader>
+                    <div className="py-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
+                      {comprehensionText}
+                    </div>
+                  </SheetContent>
+                </Sheet>
+                <div className="flex items-center gap-2 text-lg font-semibold text-primary p-2 border rounded-md">
+                  <Clock className="h-5 w-5" />
+                  <span>{formatTime(timeLeft)}</span>
+                </div>
               </div>
           </div>
           <div className="mt-4">
