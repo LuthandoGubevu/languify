@@ -42,7 +42,8 @@ export function LandingPage() {
                 </Button>
               </div>
               <Image
-                src="/tutor-image.jpg"
+                src="https://placehold.co/600x400.png"
+                data-ai-hint="tutor student"
                 width="600"
                 height="400"
                 alt="Tutor helping a student"
@@ -52,13 +53,13 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-card">
+        <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-white">
           <div className="container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Key Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">Why Choose Languify?</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline text-background">Why Choose Languify?</h2>
+                <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-background">
                   We provide the tools you need to build confidence and achieve your target score.
                 </p>
               </div>
