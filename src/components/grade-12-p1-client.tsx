@@ -53,6 +53,17 @@ Every bit counts!
 
 [Adapted from https://magazines.dischem.co.za/]`;
 
+const textFContent = `AN ODE TO SOUTH AFRICA'S VIBRANT BRAAI CULTURE
+
+1. South Africans enjoy a braai. Its the perfect occasion to enjoy the South African sunshine.
+2. Simba teamed up with Chef Benny to create a brand-new flavour in chips. He wanted to capture the essense of the braai.
+3. Chef Benny believe Simba’s Steakhouse Beef flavour is perfect for a braai.
+4. 'It is a perfect filler before a braai,' he said. He describes this taste has a smoky beef flavour with sweet barbecue notes.
+5. 'They roped me in as a chef who is synonymous with braai; I had to test it out,' he said. He often meets people that tell him they enjoy the new flavour.
+6. 'Simba has created a delicious braai companion,' Giulia Iorio-Ndlovu, marketing director said. She added that the brand presents a flavour that bridges the gap between starters and braai. The new Steakhouse Beef stands out as distinct. Unlike the traditional Smoked Beef flavour, it boasts premium spices.
+
+[Adapted from www.iol.co.za]`;
+
 const questions_part_a = [
   { id: '1.1.1', prompt: 'Why is artificial intelligence considered one of the most important technologies?', marks: 1, type: 'textarea' },
   { id: '1.1.2', prompt: "What do the words ‘science fiction fantasies’ suggest about the common perception of artificial intelligence?", marks: 2, type: 'textarea' },
@@ -140,7 +151,6 @@ const imageIntroSteps = [
   COMPREHENSION_TEXT_B_STEP,
   SECTION_C_AD_STEP,
   SECTION_C_CARTOON_STEP,
-  SECTION_5_TEXT_F_STEP,
   SECTION_5_TEXT_G_STEP,
 ];
 
@@ -315,7 +325,7 @@ export function Grade12P1Client() {
       }
       totalMarks = 10;
   } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
-      if(imageIntroSteps.includes(step)){
+      if(step === SECTION_5_TEXT_F_STEP){
         pageTitle = 'Section 5: Language and Editing Skills';
       } else {
         const questionIndex = step - SECTION_5_Q5_1_START_STEP;
@@ -345,8 +355,6 @@ export function Grade12P1Client() {
         currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Text D', width: 1000, height: 1414 };
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
-    } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
-        currentImage = { src: '/Text-F.jpg', alt: 'Text F for Analysis', buttonText: 'View Text F', width: 1000, height: 1414 };
     } else if (step >= SECTION_5_TEXT_G_STEP) {
         currentImage = { src: '/Text-G.jpg', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
     }
@@ -379,6 +387,25 @@ export function Grade12P1Client() {
                       </div>
                     </SheetContent>
                   </Sheet>
+                )}
+
+                {step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP && (
+                    <Sheet>
+                    <SheetTrigger asChild>
+                        <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
+                        <BookText className="mr-2 h-4 w-4" />
+                        View Text F
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
+                        <SheetHeader>
+                        <SheetTitle>Text F</SheetTitle>
+                        </SheetHeader>
+                        <div className="py-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
+                        {textFContent}
+                        </div>
+                    </SheetContent>
+                    </Sheet>
                 )}
 
                 {currentImage && !imageIntroSteps.includes(step) && (
@@ -657,36 +684,12 @@ export function Grade12P1Client() {
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS</CardTitle>
-            <CardDescription>Study the advertisement (TEXT F) below and answer the set questions.</CardDescription>
+            <CardDescription>Read the text (TEXT F) below and answer the set questions.</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center">
-            <Dialog>
-              <DialogTrigger asChild>
-                <div className="relative w-full max-w-lg cursor-zoom-in group">
-                    <Image
-                        src="/Text-F.jpg"
-                        alt="Text F for Analysis"
-                        data-ai-hint="advertisement text"
-                        width={800}
-                        height={1131}
-                        className="rounded-md w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
-                        <ZoomIn className="h-12 w-12 text-white" />
-                    </div>
-                </div>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 border-none">
-                 <DialogTitle className="sr-only">Text F for Analysis</DialogTitle>
-                 <Image
-                    src="/Text-F.jpg"
-                    alt="Text F for Analysis"
-                    width={1000}
-                    height={1414}
-                    className="rounded-md w-full h-auto"
-                />
-              </DialogContent>
-            </Dialog>
+            <ScrollArea className="h-96 w-full rounded-md border p-4 whitespace-pre-wrap text-sm leading-relaxed">
+              {textFContent}
+            </ScrollArea>
           </CardContent>
         </Card>
         <div className="mt-6 flex justify-between">
