@@ -95,9 +95,32 @@ const questions_sec_c_q4 = [
   { id: '4.5', prompt: 'Do you think Mrs Wilson’s comment is humorous? Substantiate your answer.', type: 'textarea', marks: 2 },
 ];
 
+const questions_sec_5_q5_1 = [
+    { id: '5.1.1', prompt: 'Correct the SINGLE error in EACH of the following sentences. Write down only the question numbers (a) to (d) and the corrected words.\n(a) Its the perfect occasion to enjoy the South African sunshine.\n(b) Simba teamed up with Chef Benny to create a brand-new flavour in chips.\n(c) He wanted to capture the essense of the braai.\n(d) Chef Benny believe Simba’s Steakhouse Beef flavour is perfect for a braai.', marks: 4, type: 'textarea' },
+    { id: '5.1.2', prompt: 'Complete the following tag question. Write down only the missing words.\n\n“It is a perfect filler before a braai, ___?”', marks: 1, type: 'text' },
+    { id: '5.1.3', prompt: 'Rewrite the following sentence correctly:\n\n“He describes this taste has a smoky beef flavour with sweet barbecue notes.”', marks: 1, type: 'textarea' },
+    { id: '5.1.4', prompt: 'Rewrite the following sentence in reported speech:\n\nChef Benny said, “They roped me in as a chef who is synonymous with braai.”', marks: 2, type: 'textarea' },
+    { id: '5.1.5', prompt: 'Use a homophone for the word new in a sentence of your own.', marks: 2, type: 'textarea' },
+    { id: '5.1.6', prompt: 'Rewrite the following sentence in the passive voice:\n\n“Simba has created a delicious braai companion.”', marks: 1, type: 'textarea' },
+    { id: '5.1.7', prompt: 'Identify the part of speech for each of the underlined words in the sentence below:\n\n“She added that the brand presents a flavour that bridges the gap...”\n(a) the\n(b) flavour', marks: 2, type: 'textarea' },
+    { id: '5.1.8', prompt: 'Rewrite the following sentence in the negative form:\n\n“The new Steakhouse Beef stands out as distinct.”', marks: 1, type: 'textarea' },
+];
+
+const questions_sec_5_q5_2 = [
+  { id: '5.2.1', prompt: 'Combine the following sentences by using the words as well as:\n\nGoogle is the most visited website.\nGoogle is the most popular search engine.', marks: 2, type: 'textarea' },
+  { id: '5.2.2', prompt: 'Give the correct form of the word in brackets:\n\nGoogle is the (create) of two university students, Larry Page and Sergey Brin.', marks: 1, type: 'text' },
+  { id: '5.2.3', prompt: 'Give the correct degree of comparison in the following sentence:\n\nGoogle offers (many) services than any other search engine.', marks: 1, type: 'text' },
+  { id: '5.2.4', prompt: 'Write the number ‘0’ in full.', marks: 1, type: 'text' },
+  { id: '5.2.5', prompt: 'Rewrite the following sentence in the present continuous tense:\n\nI used Google for my research.', marks: 1, type: 'textarea' },
+];
+
+
 const allComprehensionQuestions = [...questions_part_a, ...questions_part_b];
 const allSectionC_Q3_Questions = [...questions_sec_c_q3];
 const allSectionC_Q4_Questions = [...questions_sec_c_q4];
+const allSection5_Q5_1_Questions = [...questions_sec_5_q5_1];
+const allSection5_Q5_2_Questions = [...questions_sec_5_q5_2];
+
 
 const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
 const COMPREHENSION_TEXT_B_STEP = TEXT_A_QUESTIONS_COUNT + 1;
@@ -107,7 +130,13 @@ const SECTION_C_AD_STEP = SUMMARY_STEP + 1;
 const SECTION_C_Q3_START_STEP = SECTION_C_AD_STEP + 1;
 const SECTION_C_CARTOON_STEP = SECTION_C_Q3_START_STEP + allSectionC_Q3_Questions.length;
 const SECTION_C_Q4_START_STEP = SECTION_C_CARTOON_STEP + 1;
-const TOTAL_STEPS = SECTION_C_CARTOON_STEP + allSectionC_Q4_Questions.length;
+const SECTION_C_Q4_END_STEP = SECTION_C_Q4_START_STEP + allSectionC_Q4_Questions.length;
+const SECTION_5_TEXT_F_STEP = SECTION_C_Q4_END_STEP;
+const SECTION_5_Q5_1_START_STEP = SECTION_5_TEXT_F_STEP + 1;
+const SECTION_5_TEXT_G_STEP = SECTION_5_Q5_1_START_STEP + allSection5_Q5_1_Questions.length;
+const SECTION_5_Q5_2_START_STEP = SECTION_5_TEXT_G_STEP + 1;
+const LAST_QUESTION_STEP = SECTION_5_Q5_2_START_STEP + allSection5_Q5_2_Questions.length - 1;
+const TOTAL_STEPS = LAST_QUESTION_STEP + 1;
 
 const EXAM_DURATION = 120 * 60; // 120 minutes in seconds
 
@@ -122,7 +151,7 @@ export function Grade12P1Client() {
   const [examStarted, setExamStarted] = useState(false);
 
   useEffect(() => {
-    const savedAnswers = localStorage.getItem('comprehensionAnswers');
+    const savedAnswers = localStorage.getItem('p1Answers');
     const savedSummary = localStorage.getItem('summaryAnswer');
     if (savedAnswers) {
       setAnswers(JSON.parse(savedAnswers));
@@ -135,7 +164,7 @@ export function Grade12P1Client() {
 
   useEffect(() => {
     if (examStarted) {
-      localStorage.setItem('comprehensionAnswers', JSON.stringify(answers));
+      localStorage.setItem('p1Answers', JSON.stringify(answers));
       localStorage.setItem('summaryAnswer', summary);
     }
   }, [answers, summary, examStarted]);
@@ -191,6 +220,8 @@ export function Grade12P1Client() {
         ...allComprehensionQuestions,
         ...allSectionC_Q3_Questions,
         ...allSectionC_Q4_Questions,
+        ...allSection5_Q5_1_Questions,
+        ...allSection5_Q5_2_Questions
       ];
       const unansweredQuestions = allQuestions.filter(q => !answers[q.id]?.trim());
 
@@ -203,7 +234,7 @@ export function Grade12P1Client() {
         return;
       }
     }
-    localStorage.removeItem('comprehensionAnswers');
+    localStorage.removeItem('p1Answers');
     localStorage.removeItem('summaryAnswer');
     router.push('/grade-12/english-p1/submitted');
   };
@@ -235,7 +266,7 @@ export function Grade12P1Client() {
     );
   }
 
-  const progressValue = (step / TOTAL_STEPS) * 100;
+  const progressValue = (step / LAST_QUESTION_STEP) * 100;
 
   let pageTitle: string;
   let totalMarks = 0;
@@ -248,22 +279,12 @@ export function Grade12P1Client() {
   } else if (step === SUMMARY_STEP) {
       pageTitle = 'Section B: Summary';
       totalMarks = 10;
-  } else if (step === SECTION_C_AD_STEP) {
-      pageTitle = 'Section C: Advertisement Analysis';
-      totalMarks = 10;
-  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
-      const questionIndex = step - SECTION_C_Q3_START_STEP;
-      const question = questions_sec_c_q3[questionIndex];
-      pageTitle = `Language Question ${question.id}`;
-      totalMarks = 10;
-  } else if (step === SECTION_C_CARTOON_STEP) {
-      pageTitle = 'Section C: Cartoon Analysis';
-      totalMarks = 10;
-  } else if (step >= SECTION_C_Q4_START_STEP) {
-      const questionIndex = step - SECTION_C_Q4_START_STEP;
-      const question = questions_sec_c_q4[questionIndex];
-      pageTitle = `Language Question ${question.id}`;
-      totalMarks = 10;
+  } else if (step > SUMMARY_STEP && step < SECTION_5_TEXT_F_STEP) {
+      pageTitle = 'Section C: Language';
+      totalMarks = 20;
+  } else if (step >= SECTION_5_TEXT_F_STEP) {
+      pageTitle = 'Section C: Language and Editing';
+      totalMarks = 20;
   } else {
       pageTitle = 'Instructions';
   }
@@ -535,6 +556,117 @@ export function Grade12P1Client() {
     );
   }
 
+  if (step === SECTION_5_TEXT_F_STEP) {
+    return (
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HeaderSection />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS</CardTitle>
+            <CardDescription>Study the advertisement (TEXT F) below and answer the set questions.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center">
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative w-full max-w-lg cursor-zoom-in group">
+                    <Image
+                        src="/Text-F.jpg"
+                        alt="Text F for Analysis"
+                        data-ai-hint="advertisement text"
+                        width={800}
+                        height={1131}
+                        className="rounded-md w-full h-auto"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
+                        <ZoomIn className="h-12 w-12 text-white" />
+                    </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl p-0 border-none">
+                 <Image
+                    src="/Text-F.jpg"
+                    alt="Text F for Analysis"
+                    width={1000}
+                    height={1414}
+                    className="rounded-md w-full h-auto"
+                />
+              </DialogContent>
+            </Dialog>
+          </CardContent>
+        </Card>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
+            <ChevronLeft className="mr-2" /> Previous
+          </Button>
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+            Start Questions <ChevronRight className="ml-2" />
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  if (step === SECTION_5_TEXT_G_STEP) {
+    return (
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HeaderSection />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS</CardTitle>
+            <CardDescription>Study the text (TEXT G) below and answer the set questions.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center">
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative w-full max-w-lg cursor-zoom-in group">
+                    <Image
+                        src="/Text-G.jpg"
+                        alt="Text G for Analysis"
+                        data-ai-hint="text passage"
+                        width={800}
+                        height={600}
+                        className="rounded-md w-full h-auto"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
+                        <ZoomIn className="h-12 w-12 text-white" />
+                    </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl p-0 border-none">
+                 <Image
+                    src="/Text-G.jpg"
+                    alt="Text G for Analysis"
+                    width={1000}
+                    height={750}
+                    className="rounded-md w-full h-auto"
+                />
+              </DialogContent>
+            </Dialog>
+          </CardContent>
+        </Card>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
+            <ChevronLeft className="mr-2" /> Previous
+          </Button>
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+            Start Questions <ChevronRight className="ml-2" />
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
+
   let currentQuestion: any;
     if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
       currentQuestion = allComprehensionQuestions[step - 1];
@@ -542,8 +674,19 @@ export function Grade12P1Client() {
       currentQuestion = allComprehensionQuestions[step - 2];
   } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
-  } else if (step >= SECTION_C_Q4_START_STEP && step <= TOTAL_STEPS) {
+  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_C_Q4_END_STEP) {
       currentQuestion = questions_sec_c_q4[step - SECTION_C_Q4_START_STEP];
+  } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
+      currentQuestion = allSection5_Q5_1_Questions[step - SECTION_5_Q5_1_START_STEP];
+  } else if (step >= SECTION_5_Q5_2_START_STEP && step <= LAST_QUESTION_STEP) {
+      currentQuestion = allSection5_Q5_2_Questions[step - SECTION_5_Q5_2_START_STEP];
+  }
+
+  if (!currentQuestion) {
+      // This can happen on intermediate steps like showing a text.
+      // The individual if blocks for those steps should handle rendering.
+      // If we fall through, it's an error state.
+      return <div className="container mx-auto p-4 md:p-8 max-w-4xl">Loading...</div>
   }
 
 
@@ -614,7 +757,7 @@ export function Grade12P1Client() {
           <ChevronLeft className="mr-2 h-4 w-4" /> Previous
         </Button>
         
-        {step === TOTAL_STEPS ? (
+        {step === LAST_QUESTION_STEP ? (
             <AlertDialog>
                 <AlertDialogTrigger asChild>
                     <Button variant="default" className="transition-all hover:shadow-lg bg-green-600 hover:bg-green-700 text-white">
