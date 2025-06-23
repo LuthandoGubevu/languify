@@ -271,36 +271,69 @@ export function Grade12P1Client() {
   let pageTitle: string;
   let totalMarks = 0;
 
-  if (step > 0 && step < SUMMARY_STEP) {
-      const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : (step - COMPREHENSION_TEXT_B_STEP + questions_part_a.length);
-      const question = allComprehensionQuestions[questionIndex];
-      pageTitle = `Comprehension Question ${question.id}`;
-      totalMarks = 30;
+  if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
+    const question = questions_part_a[step - 1];
+    pageTitle = `Comprehension Question ${question.id}`;
+    totalMarks = 30;
+  } else if (step === COMPREHENSION_TEXT_B_STEP) {
+    pageTitle = 'Comprehension Text B';
+    totalMarks = 30;
+  } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
+    const questionIndex = step - COMPREHENSION_TEXT_B_STEP - 1;
+    const question = questions_part_b[questionIndex];
+    pageTitle = `Comprehension Question ${question.id}`;
+    totalMarks = 30;
   } else if (step === SUMMARY_STEP) {
-      pageTitle = 'Section B: Summary';
-      totalMarks = 10;
-  } else if (step > SUMMARY_STEP && step < SECTION_5_TEXT_F_STEP) {
-      pageTitle = 'Section C: Language';
-      totalMarks = 20;
-  } else if (step >= SECTION_5_TEXT_F_STEP) {
-      pageTitle = 'Section C: Language and Editing';
-      totalMarks = 20;
+    pageTitle = 'Section B: Summary';
+    totalMarks = 10;
+  } else if (step === SECTION_C_AD_STEP) {
+    pageTitle = 'Section C: Analysing an Advertisement';
+    totalMarks = 20;
+  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
+    const questionIndex = step - SECTION_C_Q3_START_STEP;
+    const question = questions_sec_c_q3[questionIndex];
+    pageTitle = `Language Question ${question.id}`;
+    totalMarks = 20;
+  } else if (step === SECTION_C_CARTOON_STEP) {
+    pageTitle = 'Section C: Analysing a Cartoon';
+    totalMarks = 20;
+  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_5_TEXT_F_STEP) {
+    const questionIndex = step - SECTION_C_Q4_START_STEP;
+    const question = questions_sec_c_q4[questionIndex];
+    pageTitle = `Language Question ${question.id}`;
+    totalMarks = 20;
+  } else if (step === SECTION_5_TEXT_F_STEP) {
+    pageTitle = 'Section 5: Language and Editing Skills';
+    totalMarks = 20;
+  } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
+    const questionIndex = step - SECTION_5_Q5_1_START_STEP;
+    const question = allSection5_Q5_1_Questions[questionIndex];
+    pageTitle = `Language & Editing Question ${question.id}`;
+    totalMarks = 20;
+  } else if (step === SECTION_5_TEXT_G_STEP) {
+    pageTitle = 'Section 5: Language and Editing Skills';
+    totalMarks = 20;
+  } else if (step >= SECTION_5_Q5_2_START_STEP && step <= LAST_QUESTION_STEP) {
+    const questionIndex = step - SECTION_5_Q5_2_START_STEP;
+    const question = allSection5_Q5_2_Questions[questionIndex];
+    pageTitle = `Language & Editing Question ${question.id}`;
+    totalMarks = 20;
   } else {
-      pageTitle = 'Instructions';
+    pageTitle = 'Instructions';
   }
 
   const HeaderSection = () => {
     let currentImage: { src: string, alt: string, buttonText: string, width: number, height: number } | null = null;
 
-    if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
+    if (step >= COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
         currentImage = { src: '/Text-B-Image.png', alt: 'Text B: The Benefits of Reading', buttonText: 'View Text B', width: 720, height: 1024 };
-    } else if (step > SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
+    } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
         currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Advertisement', width: 1000, height: 1414 };
-    } else if (step > SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
+    } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Cartoon-TextE.jpg', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
-    } else if (step > SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
+    } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
         currentImage = { src: '/Text-F.jpg', alt: 'Text F for Analysis', buttonText: 'View Text F', width: 1000, height: 1414 };
-    } else if (step > SECTION_5_TEXT_G_STEP) {
+    } else if (step >= SECTION_5_TEXT_G_STEP) {
         currentImage = { src: '/Text-G.jpg', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
     }
 
