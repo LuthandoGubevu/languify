@@ -159,7 +159,7 @@ export function Grade12P1Client() {
                   <SheetTrigger asChild>
                     <Button variant="outline">
                       <BookText className="mr-2 h-4 w-4" />
-                      View Passage
+                      view comprehension
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
