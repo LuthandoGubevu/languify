@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -11,6 +12,7 @@ import { Clock, ChevronLeft, ChevronRight, BookText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { motion } from 'framer-motion';
 
 const comprehensionText = `
 The words artificial intelligence (AI) seem to be on the tip of everyone's tongue lately. Once the subject of science fiction fantasies, AI is now a reality that is reshaping our world in profound ways. From the algorithms that recommend our next movie to the complex systems that can diagnose diseases, AI is fast becoming one of the most important technologies of our time. At its core, artificial intelligence is a branch of computer science that aims to create machines capable of intelligent behaviour. This includes learning, reasoning, problem-solving, perception, and language understanding.
@@ -22,7 +24,7 @@ The future of AI is exciting and transforms the way we interact with technology.
 However, like any powerful tool, AI has its limitations and must be used responsibly. It is important to be aware of the potential biases in AI algorithms and to ensure that the technology is used in a way that is fair and equitable. As we continue to embrace AI, it is crucial that we do so with a critical eye, ensuring that it serves humanity in a positive and beneficial way.
 `;
 
-const questions = [
+const questions_part_a = [
   { id: '1.1.1', prompt: 'Why is artificial intelligence considered one of the most important technologies?', marks: 1 },
   { id: '1.1.2', prompt: "What do the words ‘science fiction fantasies’ suggest about the common perception of artificial intelligence?", marks: 2 },
   { id: '1.2.1', prompt: 'Using your OWN words, explain what artificial intelligence is. State TWO points.', marks: 2 },
@@ -38,13 +40,26 @@ const questions = [
   { id: '1.8.2', prompt: 'What advice does the writer give regarding the use of artificial intelligence? State TWO points.', marks: 2 },
   { id: '1.9', prompt: 'Discuss the suitability of the title, EMBRACING ARTIFICIAL INTELLIGENCE.', marks: 2 },
 ];
-const TOTAL_QUESTIONS = questions.length;
+
+const questions_part_b = [
+  { id: '1.10', prompt: 'Identify the suggested benefit of reading shown in visual 1. Give a reason for your answer.', marks: 2 },
+  { id: '1.11', prompt: 'Refer to visual 4. What does the light bulb above the emoticon suggest about reading? Give a reason for your answer.', marks: 2 },
+  { id: '1.12', prompt: 'In your opinion, is it easier to understand the visuals used in TEXT B or the written text in TEXT B? Substantiate your answer.', marks: 2 },
+];
+
+const allQuestions = [...questions_part_a, ...questions_part_b];
+
+const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
+const TOTAL_QUESTIONS = allQuestions.length;
+const TEXT_B_VISUAL_STEP = TEXT_A_QUESTIONS_COUNT + 1;
+const TOTAL_STEPS = TOTAL_QUESTIONS + 1; 
+
 const EXAM_DURATION = 60 * 60; // 60 minutes in seconds
 
 export function Grade12P1Client() {
   const router = useRouter();
   const { toast } = useToast();
-  const [step, setStep] = useState(0); // 0 is intro, 1-15 are questions
+  const [step, setStep] = useState(0); // 0 is intro
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [examStarted, setExamStarted] = useState(false);
@@ -90,7 +105,7 @@ export function Grade12P1Client() {
   };
 
   const handleNext = () => {
-    if (step < TOTAL_QUESTIONS) {
+    if (step < TOTAL_STEPS) {
       setStep(step + 1);
     }
   };
@@ -103,7 +118,7 @@ export function Grade12P1Client() {
 
   const handleSubmit = (force = false) => {
     if (!force) {
-      const unansweredQuestions = questions.filter(q => !answers[q.id]?.trim());
+      const unansweredQuestions = allQuestions.filter(q => !answers[q.id]?.trim());
       if (unansweredQuestions.length > 0) {
         toast({
           title: "Incomplete Exam",
@@ -125,7 +140,12 @@ export function Grade12P1Client() {
   
   if (step === 0) {
     return (
-      <div className="container mx-auto p-4 md:p-8 max-w-4xl">
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <Card>
           <CardHeader>
             <CardTitle className="font-headline text-2xl">SECTION A: COMPREHENSION</CardTitle>
@@ -138,26 +158,32 @@ export function Grade12P1Client() {
             <Button onClick={handleStartExam} size="lg" className="w-full md:w-auto">Start Questions</Button>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     );
   }
 
-  const currentQuestion = questions[step - 1];
-  const progress = (step / TOTAL_QUESTIONS) * 100;
-  
-  return (
-    <div className="container mx-auto p-4 md:p-8 max-w-4xl">
+  let questionNumber = 0;
+  if (step <= TEXT_A_QUESTIONS_COUNT) {
+    questionNumber = step;
+  } else if (step > TEXT_B_VISUAL_STEP) {
+    questionNumber = step - 1;
+  }
+
+  const progressValue = questionNumber > 0 ? (questionNumber / TOTAL_QUESTIONS) * 100 : (TEXT_A_QUESTIONS_COUNT / TOTAL_QUESTIONS) * 100;
+  const pageTitle = step === TEXT_B_VISUAL_STEP ? 'Text B' : `Question ${questionNumber} of ${TOTAL_QUESTIONS}`;
+
+  const HeaderSection = () => (
       <Card className="mb-6">
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
                 <h1 className="text-2xl font-bold font-headline">Grade 12 English FAL P1 2024</h1>
-                <p className="text-muted-foreground">Question {step} of {TOTAL_QUESTIONS}</p>
+                <p className="text-muted-foreground">{pageTitle}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90">
+                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary/20">
                       <BookText className="mr-2 h-4 w-4" />
                       View Comprehension
                     </Button>
@@ -178,11 +204,62 @@ export function Grade12P1Client() {
               </div>
           </div>
           <div className="mt-4">
-            <Progress value={progress} />
+            <Progress value={progressValue} />
           </div>
         </CardHeader>
       </Card>
+  );
 
+  if (step === TEXT_B_VISUAL_STEP) {
+    return (
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HeaderSection />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">Text B: The Benefits of Reading</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center">
+             <div className="w-full max-w-[720px]">
+                <Image
+                    src="https://placehold.co/720x1024.png"
+                    alt="The Benefits of Reading"
+                    data-ai-hint="infographic reading benefits"
+                    width={720}
+                    height={1024}
+                    className="rounded-md w-full h-auto"
+                />
+            </div>
+            <p className="text-muted-foreground text-sm mt-4">Adapted from www.google.co.za</p>
+          </CardContent>
+        </Card>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg hover:shadow-primary/20">
+            <ChevronLeft className="mr-2" /> Previous
+          </Button>
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg hover:shadow-primary/20">
+            Next <ChevronRight className="ml-2" />
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : step - 2;
+  const currentQuestion = allQuestions[questionIndex];
+  
+  return (
+    <motion.div 
+      className="container mx-auto p-4 md:p-8 max-w-4xl"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <HeaderSection />
       <Card>
         <CardHeader>
             <CardTitle className="font-headline text-xl">Question {currentQuestion.id}</CardTitle>
@@ -210,18 +287,19 @@ export function Grade12P1Client() {
           onClick={handlePrev}
           disabled={step === 1}
           variant="outline"
+          className="transition-all hover:shadow-lg hover:shadow-primary/20"
         >
           <ChevronLeft className="mr-2" /> Previous
         </Button>
 
-        {step < TOTAL_QUESTIONS ? (
-          <Button onClick={handleNext}>
+        {step < TOTAL_STEPS ? (
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg hover:shadow-primary/20">
             Next <ChevronRight className="ml-2" />
           </Button>
         ) : (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive">Submit Exam</Button>
+              <Button variant="destructive" className="transition-all hover:shadow-lg hover:shadow-destructive/20">Submit Exam</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
@@ -238,6 +316,6 @@ export function Grade12P1Client() {
           </AlertDialog>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
