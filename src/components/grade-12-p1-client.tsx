@@ -18,7 +18,7 @@ import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipProvider, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
 
 const comprehensionText = `
@@ -539,7 +539,7 @@ export function Grade12P1Client() {
     if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
       currentQuestion = allComprehensionQuestions[step - 1];
   } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
-      currentQuestion = allComprehensionQuestions[step - 2 + questions_part_a.length];
+      currentQuestion = allComprehensionQuestions[step - 2];
   } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
   } else if (step >= SECTION_C_Q4_START_STEP && step <= TOTAL_STEPS) {
