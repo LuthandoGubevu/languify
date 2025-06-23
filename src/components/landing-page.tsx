@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, Zap, Award } from 'lucide-react';
@@ -25,8 +24,12 @@ export function LandingPage() {
 
   return (
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white">
-          <div className="container mx-auto px-4 md:px-6">
+        <section
+          className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-cover bg-center text-white"
+          style={{ backgroundImage: `url('/tutor-image.jpg')` }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 opacity-40"></div>
+          <div className="relative z-10 container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center gap-8 text-center">
               <div className="space-y-4">
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
@@ -41,14 +44,6 @@ export function LandingPage() {
                   <Link href="/dashboard">Start Practicing</Link>
                 </Button>
               </div>
-              <Image
-                src="https://placehold.co/600x400.png"
-                data-ai-hint="tutor student"
-                width="600"
-                height="400"
-                alt="Tutor helping a student"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
-              />
             </div>
           </div>
         </section>
