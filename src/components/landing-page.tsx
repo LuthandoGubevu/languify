@@ -42,8 +42,7 @@ export function LandingPage() {
                 </Button>
               </div>
               <Image
-                src="https://placehold.co/600x400.png"
-                data-ai-hint="tutor student"
+                src="/tutor-image.jpg"
                 width="600"
                 height="400"
                 alt="Tutor helping a student"
