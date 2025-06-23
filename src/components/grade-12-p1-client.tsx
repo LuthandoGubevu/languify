@@ -226,9 +226,8 @@ export function Grade12P1Client() {
           <CardContent className="flex flex-col items-center">
              <div className="w-full max-w-[720px]">
                 <Image
-                    src="https://placehold.co/720x1024.png"
+                    src="/Text-B-Image.png"
                     alt="The Benefits of Reading"
-                    data-ai-hint="infographic reading benefits"
                     width={720}
                     height={1024}
                     className="rounded-md w-full h-auto"
