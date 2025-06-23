@@ -183,7 +183,7 @@ export function Grade12P1Client() {
               <div className="flex items-center gap-4">
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg hover:shadow-primary/20">
+                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
                       <BookText className="mr-2 h-4 w-4" />
                       View Comprehension
                     </Button>
@@ -238,10 +238,10 @@ export function Grade12P1Client() {
           </CardContent>
         </Card>
         <div className="mt-6 flex justify-between">
-          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg hover:shadow-primary/20">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
             <ChevronLeft className="mr-2" /> Previous
           </Button>
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg hover:shadow-primary/20">
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
             Next <ChevronRight className="ml-2" />
           </Button>
         </div>
@@ -287,19 +287,19 @@ export function Grade12P1Client() {
           onClick={handlePrev}
           disabled={step === 1}
           variant="outline"
-          className="transition-all hover:shadow-lg hover:shadow-primary/20"
+          className="transition-all hover:shadow-lg"
         >
           <ChevronLeft className="mr-2" /> Previous
         </Button>
 
         {step < TOTAL_STEPS ? (
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg hover:shadow-primary/20">
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
             Next <ChevronRight className="ml-2" />
           </Button>
         ) : (
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button variant="destructive" className="transition-all hover:shadow-lg hover:shadow-destructive/20">Submit Exam</Button>
+              <Button variant="destructive" className="transition-all hover:shadow-lg">Submit Exam</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
