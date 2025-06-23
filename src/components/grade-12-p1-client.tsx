@@ -272,7 +272,7 @@ export function Grade12P1Client() {
   let totalMarks = 0;
 
   if (step > 0 && step < SUMMARY_STEP) {
-      const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : (step - COMPREHENSION_TEXT_B_STEP - 1 + questions_part_a.length);
+      const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : (step - COMPREHENSION_TEXT_B_STEP + questions_part_a.length);
       const question = allComprehensionQuestions[questionIndex];
       pageTitle = `Comprehension Question ${question.id}`;
       totalMarks = 30;
@@ -295,7 +295,7 @@ export function Grade12P1Client() {
     if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
         currentImage = { src: '/Text-B-Image.png', alt: 'Text B: The Benefits of Reading', buttonText: 'View Text B', width: 720, height: 1024 };
     } else if (step > SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
-        currentImage = { src: '/SectionC-TextD-Ad.jpg', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Advertisement', width: 1000, height: 1414 };
+        currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Advertisement', width: 1000, height: 1414 };
     } else if (step > SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Cartoon-TextE.jpg', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
     } else if (step > SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
@@ -504,7 +504,7 @@ export function Grade12P1Client() {
               <DialogTrigger asChild>
                 <div className="relative w-full max-w-lg cursor-zoom-in group">
                     <Image
-                        src="/SectionC-TextD-Ad.jpg"
+                        src="/Text-D.png"
                         alt="Sinutab Advertisement for Analysis"
                         data-ai-hint="medicine advertisement"
                         width={800}
@@ -518,7 +518,7 @@ export function Grade12P1Client() {
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
                  <Image
-                    src="/SectionC-TextD-Ad.jpg"
+                    src="/Text-D.png"
                     alt="Sinutab Advertisement for Analysis"
                     width={1000}
                     height={1414}
@@ -710,7 +710,7 @@ export function Grade12P1Client() {
     if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
       currentQuestion = allComprehensionQuestions[step - 1];
   } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
-      currentQuestion = allComprehensionQuestions[step - COMPREHENSION_TEXT_B_STEP - 1 + questions_part_a.length];
+      currentQuestion = allComprehensionQuestions[step - COMPREHENSION_TEXT_B_STEP + questions_part_a.length];
   } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
   } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_C_Q4_END_STEP) {
