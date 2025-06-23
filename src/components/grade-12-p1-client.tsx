@@ -122,21 +122,20 @@ const allSection5_Q5_1_Questions = [...questions_sec_5_q5_1];
 const allSection5_Q5_2_Questions = [...questions_sec_5_q5_2];
 
 
-const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
-const COMPREHENSION_TEXT_B_STEP = TEXT_A_QUESTIONS_COUNT + 1;
-const COMPREHENSION_QUESTIONS_END_STEP = COMPREHENSION_TEXT_B_STEP + questions_part_b.length;
-const SUMMARY_STEP = COMPREHENSION_QUESTIONS_END_STEP + 1;
+const COMPREHENSION_TEXT_B_STEP = 1 + questions_part_a.length;
+const COMPREHENSION_Q_B_START_STEP = COMPREHENSION_TEXT_B_STEP + 1;
+const SUMMARY_STEP = COMPREHENSION_Q_B_START_STEP + questions_part_b.length;
 const SECTION_C_AD_STEP = SUMMARY_STEP + 1;
 const SECTION_C_Q3_START_STEP = SECTION_C_AD_STEP + 1;
 const SECTION_C_CARTOON_STEP = SECTION_C_Q3_START_STEP + allSectionC_Q3_Questions.length;
 const SECTION_C_Q4_START_STEP = SECTION_C_CARTOON_STEP + 1;
-const SECTION_C_Q4_END_STEP = SECTION_C_Q4_START_STEP + allSectionC_Q4_Questions.length;
-const SECTION_5_TEXT_F_STEP = SECTION_C_Q4_END_STEP;
+const SECTION_5_TEXT_F_STEP = SECTION_C_Q4_START_STEP + allSectionC_Q4_Questions.length;
 const SECTION_5_Q5_1_START_STEP = SECTION_5_TEXT_F_STEP + 1;
 const SECTION_5_TEXT_G_STEP = SECTION_5_Q5_1_START_STEP + allSection5_Q5_1_Questions.length;
 const SECTION_5_Q5_2_START_STEP = SECTION_5_TEXT_G_STEP + 1;
 const LAST_QUESTION_STEP = SECTION_5_Q5_2_START_STEP + allSection5_Q5_2_Questions.length - 1;
 const TOTAL_STEPS = LAST_QUESTION_STEP + 1;
+
 
 const EXAM_DURATION = 120 * 60; // 120 minutes in seconds
 
@@ -271,17 +270,19 @@ export function Grade12P1Client() {
   let pageTitle: string;
   let totalMarks = 0;
 
-  if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
+  if (step > 0 && step < COMPREHENSION_TEXT_B_STEP) {
     const question = questions_part_a[step - 1];
     pageTitle = `Comprehension Question ${question.id}`;
     totalMarks = 30;
   } else if (step === COMPREHENSION_TEXT_B_STEP) {
     pageTitle = 'Comprehension Text B';
     totalMarks = 30;
-  } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
-    const questionIndex = step - COMPREHENSION_TEXT_B_STEP - 1;
+  } else if (step >= COMPREHENSION_Q_B_START_STEP && step < SUMMARY_STEP) {
+    const questionIndex = step - COMPREHENSION_Q_B_START_STEP;
     const question = questions_part_b[questionIndex];
-    pageTitle = `Comprehension Question ${question.id}`;
+    if (question) {
+        pageTitle = `Comprehension Question ${question.id}`;
+    }
     totalMarks = 30;
   } else if (step === SUMMARY_STEP) {
     pageTitle = 'Section B: Summary';
@@ -348,7 +349,7 @@ export function Grade12P1Client() {
               <div className="flex items-center gap-4">
                 {totalMarks > 0 && <Badge variant="secondary">Total Marks: {totalMarks}</Badge>}
                 
-                {step <= TEXT_A_QUESTIONS_COUNT && (
+                {step < COMPREHENSION_TEXT_B_STEP && (
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
@@ -740,13 +741,13 @@ export function Grade12P1Client() {
 
 
   let currentQuestion: any;
-    if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
-      currentQuestion = allComprehensionQuestions[step - 1];
-  } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
-      currentQuestion = allComprehensionQuestions[step - COMPREHENSION_TEXT_B_STEP + questions_part_a.length];
+    if (step > 0 && step < COMPREHENSION_TEXT_B_STEP) {
+      currentQuestion = questions_part_a[step - 1];
+  } else if (step >= COMPREHENSION_Q_B_START_STEP && step < SUMMARY_STEP) {
+      currentQuestion = questions_part_b[step - COMPREHENSION_Q_B_START_STEP];
   } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
-  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_C_Q4_END_STEP) {
+  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_5_TEXT_F_STEP) {
       currentQuestion = questions_sec_c_q4[step - SECTION_C_Q4_START_STEP];
   } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
       currentQuestion = allSection5_Q5_1_Questions[step - SECTION_5_Q5_1_START_STEP];
