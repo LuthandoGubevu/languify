@@ -5,17 +5,21 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
-import { Clock, ChevronLeft, ChevronRight, BookText } from 'lucide-react';
+import { Clock, ChevronLeft, ChevronRight, BookText, ZoomIn } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Badge } from '@/components/ui/badge';
 
 const comprehensionText = `
 The words artificial intelligence (AI) seem to be on the tip of everyone's tongue lately. Once the subject of science fiction fantasies, AI is now a reality that is reshaping our world in profound ways. From the algorithms that recommend our next movie to the complex systems that can diagnose diseases, AI is fast becoming one of the most important technologies of our time. At its core, artificial intelligence is a branch of computer science that aims to create machines capable of intelligent behaviour. This includes learning, reasoning, problem-solving, perception, and language understanding.
@@ -50,38 +54,49 @@ Every bit counts!
 [Adapted from https://magazines.dischem.co.za/]`;
 
 const questions_part_a = [
-  { id: '1.1.1', prompt: 'Why is artificial intelligence considered one of the most important technologies?', marks: 1 },
-  { id: '1.1.2', prompt: "What do the words ‘science fiction fantasies’ suggest about the common perception of artificial intelligence?", marks: 2 },
-  { id: '1.2.1', prompt: 'Using your OWN words, explain what artificial intelligence is. State TWO points.', marks: 2 },
-  { id: '1.2.2', prompt: 'State TWO benefits of using artificial intelligence in industries.', marks: 2 },
-  { id: '1.3', prompt: 'Identify TWO challenging areas that artificial intelligence addresses in Africa.', marks: 2 },
-  { id: '1.4.1', prompt: 'Why is the following statement FALSE? Skills are no longer required to boost economic change due to the impact of artificial intelligence on businesses.', marks: 1 },
-  { id: '1.4.2', prompt: 'Why does the writer refer to “270 per cent”? Give TWO reasons.', marks: 2 },
-  { id: '1.5.1', prompt: 'What do the words “exciting” and “transforms” suggest about the use of AI?', marks: 2 },
-  { id: '1.5.2', prompt: 'In your OWN words, explain how you can create a professional-looking website by using artificial intelligence.', marks: 2 },
-  { id: '1.6', prompt: 'What do the words “allows you to have human-like ‘conversations’” suggest about ChatGPT? State TWO points.', marks: 2 },
-  { id: '1.7', prompt: 'How does the bold glamour filter differ from previous filters?', marks: 1 },
-  { id: '1.8.1', prompt: 'Quote ONE word which indicates that AI is not perfect.', marks: 1 },
-  { id: '1.8.2', prompt: 'What advice does the writer give regarding the use of artificial intelligence? State TWO points.', marks: 2 },
-  { id: '1.9', prompt: 'Discuss the suitability of the title, EMBRACING ARTIFICIAL INTELLIGENCE.', marks: 2 },
+  { id: '1.1.1', prompt: 'Why is artificial intelligence considered one of the most important technologies?', marks: 1, type: 'textarea' },
+  { id: '1.1.2', prompt: "What do the words ‘science fiction fantasies’ suggest about the common perception of artificial intelligence?", marks: 2, type: 'textarea' },
+  { id: '1.2.1', prompt: 'Using your OWN words, explain what artificial intelligence is. State TWO points.', marks: 2, type: 'textarea' },
+  { id: '1.2.2', prompt: 'State TWO benefits of using artificial intelligence in industries.', marks: 2, type: 'textarea' },
+  { id: '1.3', prompt: 'Identify TWO challenging areas that artificial intelligence addresses in Africa.', marks: 2, type: 'textarea' },
+  { id: '1.4.1', prompt: 'Why is the following statement FALSE? Skills are no longer required to boost economic change due to the impact of artificial intelligence on businesses.', marks: 1, type: 'textarea' },
+  { id: '1.4.2', prompt: 'Why does the writer refer to “270 per cent”? Give TWO reasons.', marks: 2, type: 'textarea' },
+  { id: '1.5.1', prompt: 'What do the words “exciting” and “transforms” suggest about the use of AI?', marks: 2, type: 'textarea' },
+  { id: '1.5.2', prompt: 'In your OWN words, explain how you can create a professional-looking website by using artificial intelligence.', marks: 2, type: 'textarea' },
+  { id: '1.6', prompt: 'What do the words “allows you to have human-like ‘conversations’” suggest about ChatGPT? State TWO points.', marks: 2, type: 'textarea' },
+  { id: '1.7', prompt: 'How does the bold glamour filter differ from previous filters?', marks: 1, type: 'textarea' },
+  { id: '1.8.1', prompt: 'Quote ONE word which indicates that AI is not perfect.', marks: 1, type: 'textarea' },
+  { id: '1.8.2', prompt: 'What advice does the writer give regarding the use of artificial intelligence? State TWO points.', marks: 2, type: 'textarea' },
+  { id: '1.9', prompt: 'Discuss the suitability of the title, EMBRACING ARTIFICIAL INTELLIGENCE.', marks: 2, type: 'textarea' },
 ];
 
 const questions_part_b = [
-  { id: '1.10', prompt: 'Identify the suggested benefit of reading shown in visual 1. Give a reason for your answer.', marks: 2 },
-  { id: '1.11', prompt: 'Refer to visual 4. What does the light bulb above the emoticon suggest about reading? Give a reason for your answer.', marks: 2 },
-  { id: '1.12', prompt: 'In your opinion, is it easier to understand the visuals used in TEXT B or the written text in TEXT B? Substantiate your answer.', marks: 2 },
+  { id: '1.10', prompt: 'Identify the suggested benefit of reading shown in visual 1. Give a reason for your answer.', marks: 2, type: 'textarea' },
+  { id: '1.11', prompt: 'Refer to visual 4. What does the light bulb above the emoticon suggest about reading? Give a reason for your answer.', marks: 2, type: 'textarea' },
+  { id: '1.12', prompt: 'In your opinion, is it easier to understand the visuals used in TEXT B or the written text in TEXT B? Substantiate your answer.', marks: 2, type: 'textarea' },
 ];
 
-const allQuestions = [...questions_part_a, ...questions_part_b];
+const questions_sec_c = [
+  { id: '3.1', prompt: 'Choose the correct answer to complete the following sentence:\nThe ® next to the word Sinutab indicates that this is a … trademark.', type: 'radio', options: ['recorded', 'renewing', 'registered', 'recovering'], marks: 1 },
+  { id: '3.2.1', prompt: 'To which need does the advertiser appeal?', type: 'text', marks: 1 },
+  { id: '3.2.2', prompt: 'Explain the advertiser\'s intention in using the word, ‘yourself’.', type: 'textarea', marks: 2 },
+  { id: '3.3', prompt: 'Why has the advertiser included the visual of the bottle and the box? Give TWO points.', type: 'textarea', marks: 2 },
+  { id: '3.4', prompt: 'Quote TWO consecutive words from the text that indicate that this is not an oral treatment.', type: 'text', marks: 1 },
+  { id: '3.5', prompt: "Provide a synonym for the word 'blocked' in the following sentence:\n“For a blocked nose caused by colds, use Sinutab.”", type: 'text', marks: 1 },
+  { id: '3.6', prompt: 'Does the visual of the curved arrow support the message of the advertisement? Substantiate your answer.', type: 'textarea', marks: 2 },
+];
+
+const allComprehensionQuestions = [...questions_part_a, ...questions_part_b];
 
 const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
-const TOTAL_COMPREHENSION_QUESTIONS = allQuestions.length;
-const TEXT_B_VISUAL_STEP = TEXT_A_QUESTIONS_COUNT + 1;
-const TOTAL_QUESTION_STEPS = TOTAL_COMPREHENSION_QUESTIONS + 1; // +1 for the visual page
-const SUMMARY_STEP = TOTAL_QUESTION_STEPS + 1;
-const TOTAL_STEPS = SUMMARY_STEP;
+const COMPREHENSION_TEXT_B_STEP = TEXT_A_QUESTIONS_COUNT + 1;
+const COMPREHENSION_QUESTIONS_END_STEP = COMPREHENSION_TEXT_B_STEP + questions_part_b.length;
+const SUMMARY_STEP = COMPREHENSION_QUESTIONS_END_STEP + 1;
+const SECTION_C_AD_STEP = SUMMARY_STEP + 1;
+const SECTION_C_START_STEP = SECTION_C_AD_STEP + 1;
+const TOTAL_STEPS = SECTION_C_AD_STEP + questions_sec_c.length;
 
-const EXAM_DURATION = 60 * 60; // 60 minutes in seconds
+const EXAM_DURATION = 90 * 60; // 90 minutes in seconds
 
 export function Grade12P1Client() {
   const router = useRouter();
@@ -107,12 +122,8 @@ export function Grade12P1Client() {
 
   useEffect(() => {
     if (examStarted) {
-      if (Object.keys(answers).length > 0) {
-        localStorage.setItem('comprehensionAnswers', JSON.stringify(answers));
-      }
-      if (summary) {
-          localStorage.setItem('summaryAnswer', summary);
-      }
+      localStorage.setItem('comprehensionAnswers', JSON.stringify(answers));
+      localStorage.setItem('summaryAnswer', summary);
     }
   }, [answers, summary, examStarted]);
 
@@ -163,11 +174,12 @@ export function Grade12P1Client() {
 
   const handleSubmit = (force = false) => {
     if (!force) {
-      const unansweredQuestions = allQuestions.filter(q => !answers[q.id]?.trim());
-      if (unansweredQuestions.length > 0) {
+      const unansweredComprehension = allComprehensionQuestions.filter(q => !answers[q.id]?.trim());
+      const unansweredSectionC = questions_sec_c.filter(q => !answers[q.id]?.trim());
+      if (unansweredComprehension.length > 0 || unansweredSectionC.length > 0 || !summary.trim()) {
         toast({
           title: "Incomplete Exam",
-          description: `Please answer all questions before submitting. You have ${unansweredQuestions.length} remaining.`,
+          description: `Please answer all questions before submitting.`,
           variant: "destructive",
         });
         return;
@@ -211,20 +223,27 @@ export function Grade12P1Client() {
   }
 
   const progressValue = (step / TOTAL_STEPS) * 100;
+
   let pageTitle: string;
-  let questionNumberForTitle = 0;
+  let totalMarks = 0;
 
-  if (step <= TOTAL_QUESTION_STEPS) {
-      if (step === TEXT_B_VISUAL_STEP) {
-          pageTitle = 'Text B';
-      } else {
-          questionNumberForTitle = step <= TEXT_A_QUESTIONS_COUNT ? step : step - 1;
-          pageTitle = `Question ${questionNumberForTitle} of ${TOTAL_COMPREHENSION_QUESTIONS}`;
-      }
-  } else {
+  if (step > 0 && step < SUMMARY_STEP) {
+      const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : step - 2;
+      const question = allComprehensionQuestions[questionIndex];
+      pageTitle = `Comprehension Question ${question.id}`;
+  } else if (step === SUMMARY_STEP) {
       pageTitle = 'Section B: Summary';
+  } else if (step === SECTION_C_AD_STEP) {
+      pageTitle = 'Section C: Advertisement Analysis';
+      totalMarks = 10;
+  } else if (step >= SECTION_C_START_STEP) {
+      const questionIndex = step - SECTION_C_START_STEP;
+      const question = questions_sec_c[questionIndex];
+      pageTitle = `Language Question ${question.id}`;
+      totalMarks = 10;
+  } else {
+      pageTitle = 'Instructions';
   }
-
 
   const HeaderSection = () => (
       <Card className="mb-6">
@@ -235,6 +254,7 @@ export function Grade12P1Client() {
                 <p className="text-muted-foreground">{pageTitle}</p>
               </div>
               <div className="flex items-center gap-4">
+                {totalMarks > 0 && <Badge variant="secondary">Total Marks: {totalMarks}</Badge>}
                 <Sheet>
                   <SheetTrigger asChild>
                     <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
@@ -264,7 +284,7 @@ export function Grade12P1Client() {
       </Card>
   );
 
-  if (step === TEXT_B_VISUAL_STEP) {
+  if (step === COMPREHENSION_TEXT_B_STEP) {
     return (
       <motion.div 
         className="container mx-auto p-4 md:p-8 max-w-4xl"
@@ -370,40 +390,80 @@ export function Grade12P1Client() {
             </Card>
 
             <div className="mt-6 flex justify-between">
-                <Button
-                    onClick={handlePrev}
-                    variant="outline"
-                    className="transition-all hover:shadow-lg"
-                >
+                <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
                     <ChevronLeft className="mr-2 h-4 w-4" /> Previous
                 </Button>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <Button variant="default" className="transition-all hover:shadow-lg bg-green-600 hover:bg-green-700 text-white">
-                           ✅ Submit Answer
-                        </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                This will conclude the exam. You cannot make changes after submitting.
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction onClick={() => handleSubmit(false)}>Submit Exam</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
+                <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+                    Next Section <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
             </div>
         </motion.div>
     );
   }
 
-  const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : step - 2;
-  const currentQuestion = allQuestions[questionIndex];
-  
+  if (step === SECTION_C_AD_STEP) {
+    return (
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HeaderSection />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 3: ANALYSING AN ADVERTISEMENT</CardTitle>
+            <CardDescription>Study the advertisement (TEXT D) below and answer the set questions.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center">
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative w-full max-w-lg cursor-zoom-in group">
+                    <Image
+                        src="/SectionC-TextD-Ad.jpg"
+                        alt="Sinutab Advertisement for Analysis"
+                        width={800}
+                        height={1131}
+                        className="rounded-md w-full h-auto"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
+                        <ZoomIn className="h-12 w-12 text-white" />
+                    </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl p-0 border-none">
+                 <Image
+                    src="/SectionC-TextD-Ad.jpg"
+                    alt="Sinutab Advertisement for Analysis"
+                    width={1000}
+                    height={1414}
+                    className="rounded-md w-full h-auto"
+                />
+              </DialogContent>
+            </Dialog>
+          </CardContent>
+        </Card>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
+            <ChevronLeft className="mr-2" /> Previous
+          </Button>
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+            Start Questions <ChevronRight className="ml-2" />
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
+  let currentQuestion: any;
+  if (step > 0 && step <= COMPREHENSION_TEXT_B_STEP) {
+      currentQuestion = allComprehensionQuestions[step - 1];
+  } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
+      currentQuestion = allComprehensionQuestions[step - 2];
+  } else if (step >= SECTION_C_START_STEP && step <= TOTAL_STEPS) {
+      currentQuestion = questions_sec_c[step - SECTION_C_START_STEP];
+  }
+
   return (
     <motion.div 
       className="container mx-auto p-4 md:p-8 max-w-4xl"
@@ -417,21 +477,46 @@ export function Grade12P1Client() {
       <Card>
         <CardHeader>
             <CardTitle className="font-headline text-xl">Question {currentQuestion.id}</CardTitle>
-            <CardDescription className="pt-2 text-base text-foreground">{currentQuestion.prompt}</CardDescription>
+            <CardDescription className="pt-2 text-base text-foreground whitespace-pre-wrap">{currentQuestion.prompt}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid w-full gap-2">
+          <div className="grid w-full gap-4">
             <Label htmlFor={`question-${currentQuestion.id}`} className="font-bold">
               Your Answer ({currentQuestion.marks} {currentQuestion.marks > 1 ? 'marks' : 'mark'})
             </Label>
-            <Textarea
-              id={`question-${currentQuestion.id}`}
-              placeholder="Type your answer here..."
-              value={answers[currentQuestion.id] || ''}
-              onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
-              rows={8}
-              className="text-base transition focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-2"
-            />
+            {currentQuestion.type === 'textarea' && (
+                <Textarea
+                  id={`question-${currentQuestion.id}`}
+                  placeholder="Type your answer here..."
+                  value={answers[currentQuestion.id] || ''}
+                  onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
+                  rows={8}
+                  className="text-base transition focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-2"
+                />
+            )}
+            {currentQuestion.type === 'text' && (
+                <Input
+                  id={`question-${currentQuestion.id}`}
+                  placeholder="Type your answer here..."
+                  value={answers[currentQuestion.id] || ''}
+                  onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
+                  className="text-base transition focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-2"
+                />
+            )}
+            {currentQuestion.type === 'radio' && (
+                <RadioGroup
+                    value={answers[currentQuestion.id] || ''}
+                    onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+                    className="space-y-2"
+                >
+                    {currentQuestion.options.map((option: string) => (
+                        <div key={option} className="flex items-center space-x-2 p-2 rounded-md border has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-muted">
+                            <RadioGroupItem value={option} id={`${currentQuestion.id}-${option}`} />
+                            <Label htmlFor={`${currentQuestion.id}-${option}`} className="flex-1 cursor-pointer">{option}</Label>
+                        </div>
+                    ))}
+                </RadioGroup>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -445,9 +530,32 @@ export function Grade12P1Client() {
         >
           <ChevronLeft className="mr-2 h-4 w-4" /> Previous
         </Button>
-        <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            {step === TOTAL_QUESTION_STEPS ? 'Go to Summary' : 'Next'} <ChevronRight className="ml-2 h-4 w-4" />
-        </Button>
+        
+        {step === TOTAL_STEPS ? (
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button variant="default" className="transition-all hover:shadow-lg bg-green-600 hover:bg-green-700 text-white">
+                       ✅ Submit Exam
+                    </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This will conclude the exam. You cannot make changes after submitting.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => handleSubmit(false)}>Submit Exam</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        ) : (
+             <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+                Next <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+        )}
       </div>
     </motion.div>
   );

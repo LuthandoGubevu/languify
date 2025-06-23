@@ -11,13 +11,14 @@ export interface PracticePaper {
   progress?: number;
 }
 
-export type QuestionType = 'multiple-choice' | 'essay';
+export type QuestionType = 'multiple-choice' | 'essay' | 'radio' | 'text' | 'textarea';
 
 export interface Question {
   id: string;
   questionText: string;
   type: QuestionType;
   options?: string[];
+  marks?: number;
 }
 
 export interface Exam {
