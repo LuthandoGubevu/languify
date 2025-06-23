@@ -63,7 +63,7 @@ export function LandingPage() {
               {features.map((feature, index) => (
                 <Card key={index} className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white border-none shadow-lg">
                   <CardHeader className="flex flex-col items-center text-center">
-                    {feature.icon}
+                    <div className="p-3 bg-white/20 rounded-lg">{feature.icon}</div>
                     <CardTitle className="mt-4 font-headline">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
@@ -73,22 +73,6 @@ export function LandingPage() {
               ))}
             </div>
           </div>
-        </section>
-
-        <section className="w-full py-12 md:py-24 lg:py-32">
-            <div className="container mx-auto flex flex-col items-center justify-center gap-4 px-4 text-center md:px-6">
-                <div className="space-y-3">
-                    <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight font-headline">Ready to Get Started?</h2>
-                    <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                        Sign up now and take the first step towards your language certification. It's time to unlock your potential.
-                    </p>
-                </div>
-                <div className="mx-auto w-full max-w-sm space-y-2">
-                    <Button asChild size="lg" className="w-full">
-                        <Link href="/dashboard">View Dashboard</Link>
-                    </Button>
-                </div>
-            </div>
         </section>
       </main>
   );
