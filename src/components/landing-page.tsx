@@ -42,11 +42,10 @@ export function LandingPage() {
                 </Button>
               </div>
               <Image
-                src="https://placehold.co/600x400.png"
+                src="/tutor-image.jpg"
                 width="600"
                 height="400"
                 alt="Tutor helping a student"
-                data-ai-hint="tutor student"
                 className="mx-auto aspect-video overflow-hidden rounded-xl object-cover"
               />
             </div>
