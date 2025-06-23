@@ -14,7 +14,7 @@ import { Clock, ChevronLeft, ChevronRight, BookText, ZoomIn } from 'lucide-react
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger, DialogTitle } from '@/components/ui/dialog';
 import { motion } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -282,6 +282,8 @@ export function Grade12P1Client() {
     const question = questions_part_b[questionIndex];
     if (question) {
         pageTitle = `Comprehension Question ${question.id}`;
+    } else {
+        pageTitle = "Comprehension Question"
     }
     totalMarks = 30;
   } else if (step === SUMMARY_STEP) {
@@ -377,6 +379,7 @@ export function Grade12P1Client() {
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="max-w-4xl p-0 border-none">
+                            <DialogTitle className="sr-only">{currentImage.alt}</DialogTitle>
                             <Image
                                 src={currentImage.src}
                                 alt={currentImage.alt}
@@ -551,6 +554,7 @@ export function Grade12P1Client() {
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
+                <DialogTitle className="sr-only">Sinutab Advertisement for Analysis</DialogTitle>
                  <Image
                     src="/Text-D.png"
                     alt="Sinutab Advertisement for Analysis"
@@ -606,6 +610,7 @@ export function Grade12P1Client() {
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
+                 <DialogTitle className="sr-only">Cartoon for Analysis</DialogTitle>
                  <Image
                     src="/Text-E.png"
                     alt="Cartoon for Analysis"
@@ -661,6 +666,7 @@ export function Grade12P1Client() {
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
+                 <DialogTitle className="sr-only">Text F for Analysis</DialogTitle>
                  <Image
                     src="/Text-F.jpg"
                     alt="Text F for Analysis"
@@ -716,6 +722,7 @@ export function Grade12P1Client() {
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
+                 <DialogTitle className="sr-only">Text G for Analysis</DialogTitle>
                  <Image
                     src="/Text-G.jpg"
                     alt="Text G for Analysis"
