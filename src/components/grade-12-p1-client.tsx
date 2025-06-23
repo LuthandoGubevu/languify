@@ -331,7 +331,7 @@ export function Grade12P1Client() {
     } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
         currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Advertisement', width: 1000, height: 1414 };
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
-        currentImage = { src: '/Cartoon-TextE.jpg', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
+        currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
     } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
         currentImage = { src: '/Text-F.jpg', alt: 'Text F for Analysis', buttonText: 'View Text F', width: 1000, height: 1414 };
     } else if (step >= SECTION_5_TEXT_G_STEP) {
@@ -593,7 +593,7 @@ export function Grade12P1Client() {
               <DialogTrigger asChild>
                 <div className="relative w-full max-w-2xl cursor-zoom-in group">
                     <Image
-                        src="/Cartoon-TextE.jpg"
+                        src="/Text-E.png"
                         alt="Cartoon for Analysis"
                         data-ai-hint="comic strip"
                         width={800}
@@ -607,7 +607,7 @@ export function Grade12P1Client() {
               </DialogTrigger>
               <DialogContent className="max-w-4xl p-0 border-none">
                  <Image
-                    src="/Cartoon-TextE.jpg"
+                    src="/Text-E.png"
                     alt="Cartoon for Analysis"
                     width={1000}
                     height={750}
