@@ -42,17 +42,17 @@ export function FeedbackClient({ examId }: { examId: string }) {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Feedback for: {exam.title}</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-headline">Feedback for: {exam.title}</h1>
         <p className="text-muted-foreground">Review your performance and read the tutor's comments to improve.</p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="font-headline">Overall Score</CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-center py-10">
-            <div className="text-7xl font-bold text-primary">{feedback.overallScore}<span className="text-4xl text-muted-foreground">%</span></div>
+            <div className="text-6xl sm:text-7xl font-bold text-primary">{feedback.overallScore}<span className="text-3xl sm:text-4xl text-muted-foreground">%</span></div>
           </CardContent>
         </Card>
         <Card>
@@ -90,9 +90,9 @@ export function FeedbackClient({ examId }: { examId: string }) {
               return (
                 <AccordionItem value={`item-${index}`} key={question.id}>
                   <AccordionTrigger>
-                    <div className="flex items-center gap-4">
-                        {isGoodScore ? <CheckCircle className="h-5 w-5 text-green-500" /> : <XCircle className="h-5 w-5 text-destructive" />}
-                        <span className="text-left font-semibold">Question {index + 1}: Score {qFeedback.score}%</span>
+                    <div className="flex items-center gap-4 text-left">
+                        {isGoodScore ? <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" /> : <XCircle className="h-5 w-5 text-destructive flex-shrink-0" />}
+                        <span className="font-semibold">Question {index + 1}: Score {qFeedback.score}%</span>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="space-y-4 pt-4">

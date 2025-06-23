@@ -9,8 +9,8 @@ export default function SubmissionConfirmationPage() {
       <Card className="w-full max-w-md text-center">
         <CardHeader>
           <CardTitle className="flex flex-col items-center gap-4">
-            <CheckCircle className="h-16 w-16 text-green-500" />
-            <span className="text-2xl font-headline">Exam Submitted Successfully!</span>
+            <CheckCircle className="h-12 w-12 sm:h-16 sm:w-16 text-green-500" />
+            <span className="text-xl sm:text-2xl font-headline">Exam Submitted Successfully!</span>
           </CardTitle>
         </CardHeader>
         <CardContent>

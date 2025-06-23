@@ -46,13 +46,13 @@ export function BookTutorClient() {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
        <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Book a Tutor</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-headline">Book a Tutor</h1>
         <p className="text-muted-foreground">
           Schedule a one-on-one session with one of our expert English tutors.
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <Card className="border-none shadow-none">
           <CardHeader>
             <CardTitle>Booking Form</CardTitle>

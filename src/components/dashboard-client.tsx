@@ -55,9 +55,9 @@ export function DashboardClient() {
     <div className="container mx-auto p-4 md:p-8 max-w-7xl space-y-8">
         
       {/* Hero Banner */}
-      <div className="relative rounded-2xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 p-8 text-white overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
+      <div className="relative rounded-2xl bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 p-6 sm:p-8 text-white overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105">
         <div className="relative z-10">
-          <h1 className="text-3xl font-bold font-headline">🔥 Master Grade 12 English in 30 Days</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold font-headline">🔥 Master Grade 12 English in 30 Days</h1>
           <p className="mt-2 text-indigo-100">Includes Paper 1–3 Video & Practice Resources</p>
           <Button asChild className="mt-4 bg-white text-indigo-600 hover:bg-gray-100 font-bold group">
             <Link href="/courses">
@@ -70,7 +70,7 @@ export function DashboardClient() {
       {/* Learning Overview */}
       <div>
         <h2 className="text-2xl font-bold font-headline mb-4">Your Learning Overview</h2>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             
             {/* Exam Progress */}
             <motion.div variants={cardVariants} whileHover="hover">
@@ -179,22 +179,22 @@ export function DashboardClient() {
       {/* Smart Recommendations */}
       <div>
         <h2 className="text-2xl font-bold font-headline mb-4">Smart Recommendations</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-            <Card className="bg-primary/5 border-primary/20 flex items-center p-6">
-                <Sparkles className="h-8 w-8 text-primary mr-4" />
-                <div>
-                    <CardTitle className="text-lg font-headline">Start Paper 2 Now</CardTitle>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <Card className="bg-primary/5 border-primary/20 flex flex-col sm:flex-row items-start sm:items-center p-6 gap-4">
+                <Sparkles className="h-8 w-8 text-primary mr-4 flex-shrink-0" />
+                <div className="flex-grow">
+                    <CardTitle className="text-base sm:text-lg font-headline">Start Paper 2 Now</CardTitle>
                     <CardDescription>We noticed you haven't started Paper 2. Why not give it a try?</CardDescription>
                 </div>
-                <Button className="ml-auto">Start Now</Button>
+                <Button className="ml-auto mt-2 sm:mt-0">Start Now</Button>
             </Card>
-            <Card className="bg-muted/50 flex items-center p-6">
-                <Sparkles className="h-8 w-8 text-muted-foreground mr-4" />
-                <div>
-                    <CardTitle className="text-lg font-headline">Finish your course</CardTitle>
+            <Card className="bg-muted/50 flex flex-col sm:flex-row items-start sm:items-center p-6 gap-4">
+                <Sparkles className="h-8 w-8 text-muted-foreground mr-4 flex-shrink-0" />
+                <div className="flex-grow">
+                    <CardTitle className="text-base sm:text-lg font-headline">Finish your course</CardTitle>
                     <CardDescription>Only 3 lessons left in "Mastering the Essay"!</CardDescription>
                 </div>
-                <Button variant="secondary" className="ml-auto">Continue</Button>
+                <Button variant="secondary" className="ml-auto mt-2 sm:mt-0">Continue</Button>
             </Card>
         </div>
       </div>

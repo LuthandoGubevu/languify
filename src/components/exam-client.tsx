@@ -104,7 +104,7 @@ export function ExamClient({ examId }: { examId: string }) {
       <div className="bg-card p-6 rounded-lg shadow-sm mb-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-bold font-headline">{exam.title}</h1>
+            <h1 className="text-xl md:text-2xl font-bold font-headline">{exam.title}</h1>
             <p className="text-muted-foreground">Complete all questions before the time runs out.</p>
           </div>
           <div className="flex items-center gap-2 text-lg font-semibold text-primary p-2 border rounded-md">

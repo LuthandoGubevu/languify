@@ -30,13 +30,13 @@ export function CoursesClient() {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Courses</h1>
+        <h1 className="text-2xl sm:text-3xl font-bold font-headline">Courses</h1>
         <p className="text-muted-foreground">
           Interactive lessons to help you master key concepts.
         </p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {mockCourses.map((course) => (
           <CourseCard key={course.id} course={course} />
         ))}

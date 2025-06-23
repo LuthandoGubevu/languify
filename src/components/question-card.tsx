@@ -16,12 +16,12 @@ export function QuestionCard({ question, questionNumber, totalQuestions, answer,
     <Card className="w-full">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="font-headline">Question {questionNumber}</CardTitle>
+          <CardTitle className="font-headline text-lg md:text-xl">Question {questionNumber}</CardTitle>
           <span className="text-sm text-muted-foreground">
             {questionNumber} of {totalQuestions}
           </span>
         </div>
-        <CardDescription className="pt-2 text-base">{question.questionText}</CardDescription>
+        <CardDescription className="pt-2 text-base leading-relaxed">{question.questionText}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid w-full gap-1.5">

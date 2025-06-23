@@ -37,7 +37,7 @@ export function LandingPage() {
           <div className="relative z-10 container mx-auto px-4 md:px-6">
             <div className="flex flex-col items-center gap-8 text-center">
               <div className="space-y-4">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none font-headline">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl xl:text-6xl/none font-headline">
                   Master Your Language Exams with Languify
                 </h1>
                 <p className="mx-auto max-w-[600px] text-indigo-100 md:text-xl">
@@ -58,13 +58,13 @@ export function LandingPage() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Key Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline text-background">Why Choose Languify?</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl font-headline text-background">Why Choose Languify?</h2>
                 <p className="max-w-[900px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-background">
                   We provide the tools you need to build confidence and achieve your target score.
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-6xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 mt-12">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 mt-12">
               {features.map((feature, index) => (
                 <Card key={index} className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white border-none shadow-lg">
                   <CardHeader className="flex flex-col items-center text-center">

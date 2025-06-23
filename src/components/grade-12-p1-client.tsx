@@ -152,8 +152,11 @@ const imageIntroSteps = [
   COMPREHENSION_TEXT_B_STEP,
   SECTION_C_AD_STEP,
   SECTION_C_CARTOON_STEP,
-  SECTION_5_TEXT_F_STEP,
   SECTION_5_TEXT_G_STEP,
+];
+
+const textIntroSteps = [
+  SECTION_5_TEXT_F_STEP
 ];
 
 const EXAM_DURATION = 120 * 60; // 120 minutes in seconds
@@ -273,7 +276,7 @@ export function Grade12P1Client() {
       >
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-2xl">Grade 12 English FAL Paper 1</CardTitle>
+            <CardTitle className="font-headline text-xl sm:text-2xl">Grade 12 English FAL Paper 1</CardTitle>
             <CardDescription className="text-foreground">This paper consists of three sections: Comprehension, Summary, and Language. You have 2 hours to complete it.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -289,7 +292,7 @@ export function Grade12P1Client() {
   let pageTitle: string;
   let totalMarks = 0;
 
-  if (step > 0 && step < COMPREHENSION_TEXT_B_STEP) {
+ if (step > 0 && step < COMPREHENSION_TEXT_B_STEP) {
     const question = questions_part_a[step - 1];
     pageTitle = `Comprehension Question ${question.id}`;
     totalMarks = 30;
@@ -308,41 +311,37 @@ export function Grade12P1Client() {
   } else if (step === SUMMARY_STEP) {
     pageTitle = 'Section B: Summary';
     totalMarks = 10;
-  } else if (step > SUMMARY_STEP && step < SECTION_C_CARTOON_STEP) {
-      if(step === SECTION_C_AD_STEP){
-        pageTitle = 'Section C: Analysing an Advertisement';
-      } else {
-        const questionIndex = step - SECTION_C_Q3_START_STEP;
-        const question = questions_sec_c_q3[questionIndex];
-        pageTitle = `Language Question ${question.id}`;
-      }
+  } else if (step === SECTION_C_AD_STEP) {
+    pageTitle = 'Section C: Analysing an Advertisement';
+    totalMarks = 10;
+  } else if (step > SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
+      const questionIndex = step - SECTION_C_Q3_START_STEP;
+      const question = questions_sec_c_q3[questionIndex];
+      pageTitle = `Language Question ${question.id}`;
       totalMarks = 10;
-  } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
-      if(step === SECTION_C_CARTOON_STEP){
-        pageTitle = 'Section C: Analysing a Cartoon';
-      } else {
-        const questionIndex = step - SECTION_C_Q4_START_STEP;
-        const question = questions_sec_c_q4[questionIndex];
-        pageTitle = `Language Question ${question.id}`;
-      }
+  } else if (step === SECTION_C_CARTOON_STEP) {
+      pageTitle = 'Section C: Analysing a Cartoon';
       totalMarks = 10;
-  } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
-      if(step === SECTION_5_TEXT_F_STEP){
-        pageTitle = 'Section 5: Language and Editing Skills';
-      } else {
-        const questionIndex = step - SECTION_5_Q5_1_START_STEP;
-        const question = allSection5_Q5_1_Questions[questionIndex];
-        pageTitle = `Language & Editing Question ${question.id}`;
-      }
+  } else if (step > SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
+      const questionIndex = step - SECTION_C_Q4_START_STEP;
+      const question = questions_sec_c_q4[questionIndex];
+      pageTitle = `Language Question ${question.id}`;
+      totalMarks = 10;
+  } else if (step === SECTION_5_TEXT_F_STEP) {
+      pageTitle = 'Section 5: Language and Editing Skills';
       totalMarks = 20;
-  } else if (step >= SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
-      if(step === SECTION_5_TEXT_G_STEP){
-        pageTitle = 'Section 5: Language and Editing Skills';
-      } else {
-        const questionIndex = step - SECTION_5_Q5_2_START_STEP;
-        const question = allSection5_Q5_2_Questions[questionIndex];
-        pageTitle = `Language & Editing Question ${question.id}`;
-      }
+  } else if (step > SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
+      const questionIndex = step - SECTION_5_Q5_1_START_STEP;
+      const question = allSection5_Q5_1_Questions[questionIndex];
+      pageTitle = `Language & Editing Question ${question.id}`;
+      totalMarks = 20;
+  } else if (step === SECTION_5_TEXT_G_STEP) {
+      pageTitle = 'Section 5: Language and Editing Skills';
+      totalMarks = 20;
+  } else if (step > SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
+      const questionIndex = step - SECTION_5_Q5_2_START_STEP;
+      const question = allSection5_Q5_2_Questions[questionIndex];
+      pageTitle = `Language & Editing Question ${question.id}`;
       totalMarks = 20;
   } else {
       pageTitle = 'Instructions';
@@ -350,6 +349,7 @@ export function Grade12P1Client() {
 
   const HeaderSection = () => {
     let currentImage: { src: string, alt: string, buttonText: string, width: number, height: number } | null = null;
+    let showTextFSheet = false;
 
     if (step >= COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
         currentImage = { src: '/Text-B-Image.png', alt: 'Text B: The Benefits of Reading', buttonText: 'View Text B', width: 720, height: 1024 };
@@ -357,6 +357,8 @@ export function Grade12P1Client() {
         currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Text D', width: 1000, height: 1414 };
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
+    } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
+        showTextFSheet = true;
     } else if (step >= SECTION_5_TEXT_G_STEP) {
         currentImage = { src: '/Text-g-image.png', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
     }
@@ -366,10 +368,10 @@ export function Grade12P1Client() {
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
               <div>
-                <h1 className="text-2xl font-bold font-headline">Grade 12 English FAL P1 2024</h1>
+                <h1 className="text-xl md:text-2xl font-bold font-headline">Grade 12 English FAL P1 2024</h1>
                 <p className="text-muted-foreground">{pageTitle}</p>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex w-full md:w-auto items-center justify-between md:justify-end gap-2 flex-wrap">
                 {totalMarks > 0 && <Badge variant="secondary">Total Marks: {totalMarks}</Badge>}
                 
                 {step < SUMMARY_STEP && (
@@ -391,7 +393,7 @@ export function Grade12P1Client() {
                   </Sheet>
                 )}
 
-                {step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP && (
+                {showTextFSheet && (
                     <Sheet>
                     <SheetTrigger asChild>
                         <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
@@ -418,7 +420,7 @@ export function Grade12P1Client() {
                                 {currentImage.buttonText}
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="max-w-4xl p-0 border-none">
+                        <DialogContent className="max-w-full sm:max-w-4xl p-0 border-none">
                             <DialogTitle className="sr-only">{currentImage.alt}</DialogTitle>
                             <Image
                                 src={currentImage.src}
@@ -444,42 +446,107 @@ export function Grade12P1Client() {
       </Card>
   )};
 
-  if (step === COMPREHENSION_TEXT_B_STEP) {
+  if (imageIntroSteps.includes(step)) {
+    let imageSrc = '';
+    let imageAlt = '';
+    let title = '';
+    let description = '';
+    let dataAiHint = '';
+    let width = 800;
+    let height = 1131;
+
+    switch(step) {
+        case COMPREHENSION_TEXT_B_STEP:
+            imageSrc = "/Text-B-Image.png";
+            imageAlt = "The Benefits of Reading";
+            title = "Text B: The Benefits of Reading";
+            description = "Adapted from www.google.co.za";
+            dataAiHint = "infographic benefits";
+            width = 720;
+            height = 1024;
+            break;
+        case SECTION_C_AD_STEP:
+            imageSrc = "/Text-D.png";
+            imageAlt = "Sinutab Advertisement for Analysis";
+            title = "SECTION C: LANGUAGE – QUESTION 3: ANALYSING AN ADVERTISEMENT";
+            description = "Study the advertisement (TEXT D) below and answer the set questions.";
+            dataAiHint = "medicine advertisement";
+            width = 800;
+            height = 1131;
+            break;
+        case SECTION_C_CARTOON_STEP:
+            imageSrc = "/Text-E.png";
+            imageAlt = "Cartoon for Analysis";
+            title = "SECTION C: LANGUAGE – QUESTION 4: ANALYSING A CARTOON";
+            description = "Study the cartoon (TEXT E) below and answer the set questions.";
+            dataAiHint = "comic strip";
+            width = 800;
+            height = 600;
+            break;
+        case SECTION_5_TEXT_G_STEP:
+            imageSrc = "/Text-g-image.png";
+            imageAlt = "Text G for Analysis";
+            title = "SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS";
+            description = "Study the text (TEXT G) below and answer the set questions.";
+            dataAiHint = "text passage";
+            width = 800;
+            height = 600;
+            break;
+    }
+
     return (
-      <motion.div 
-        className="container mx-auto p-4 md:p-8 max-w-4xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HeaderSection />
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl">Text B: The Benefits of Reading</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center">
-             <div className="w-full max-w-[720px]">
-                <Image
-                    src="/Text-B-Image.png"
-                    alt="The Benefits of Reading"
-                    data-ai-hint="infographic benefits"
-                    width={720}
-                    height={1024}
-                    className="rounded-md w-full h-auto"
-                />
+        <motion.div
+            className="container mx-auto p-4 md:p-8 max-w-4xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <HeaderSection />
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline text-xl">{title}</CardTitle>
+                    {description && <CardDescription>{description}</CardDescription>}
+                </CardHeader>
+                <CardContent className="flex flex-col items-center">
+                    <Dialog>
+                        <DialogTrigger asChild>
+                            <div className="relative w-full max-w-2xl cursor-zoom-in group">
+                                <Image
+                                    src={imageSrc}
+                                    alt={imageAlt}
+                                    data-ai-hint={dataAiHint}
+                                    width={width}
+                                    height={height}
+                                    className="rounded-md w-full h-auto"
+                                />
+                                <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
+                                    <ZoomIn className="h-12 w-12 text-white" />
+                                </div>
+                            </div>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-full sm:max-w-4xl p-0 border-none">
+                            <DialogTitle className="sr-only">{imageAlt}</DialogTitle>
+                            <Image
+                                src={imageSrc}
+                                alt={imageAlt}
+                                width={width}
+                                height={height}
+                                className="rounded-md w-full h-auto"
+                            />
+                        </DialogContent>
+                    </Dialog>
+                     {description && <p className="text-muted-foreground text-sm mt-4">{description}</p>}
+                </CardContent>
+            </Card>
+            <div className="mt-6 flex justify-between">
+                <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
+                    <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+                </Button>
+                <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+                    Start Questions <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
             </div>
-            <p className="text-muted-foreground text-sm mt-4">Adapted from www.google.co.za</p>
-          </CardContent>
-        </Card>
-        <div className="mt-6 flex justify-between">
-          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
-            <ChevronLeft className="mr-2" /> Previous
-          </Button>
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            Next <ChevronRight className="ml-2" />
-          </Button>
-        </div>
-      </motion.div>
+        </motion.div>
     );
   }
 
@@ -562,119 +629,17 @@ export function Grade12P1Client() {
     );
   }
 
-  if (step === SECTION_C_AD_STEP) {
-    return (
-      <motion.div 
-        className="container mx-auto p-4 md:p-8 max-w-4xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HeaderSection />
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 3: ANALYSING AN ADVERTISEMENT</CardTitle>
-            <CardDescription>Study the advertisement (TEXT D) below and answer the set questions.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <Dialog>
-              <DialogTrigger asChild>
-                <div className="relative w-full max-w-lg cursor-zoom-in group">
-                    <Image
-                        src="/Text-D.png"
-                        alt="Sinutab Advertisement for Analysis"
-                        data-ai-hint="medicine advertisement"
-                        width={800}
-                        height={1131}
-                        className="rounded-md w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
-                        <ZoomIn className="h-12 w-12 text-white" />
-                    </div>
-                </div>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 border-none">
-                <DialogTitle className="sr-only">Sinutab Advertisement for Analysis</DialogTitle>
-                 <Image
-                    src="/Text-D.png"
-                    alt="Sinutab Advertisement for Analysis"
-                    width={1000}
-                    height={1414}
-                    className="rounded-md w-full h-auto"
-                />
-              </DialogContent>
-            </Dialog>
-          </CardContent>
-        </Card>
-        <div className="mt-6 flex justify-between">
-          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
-            <ChevronLeft className="mr-2" /> Previous
-          </Button>
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            Start Questions <ChevronRight className="ml-2" />
-          </Button>
-        </div>
-      </motion.div>
-    );
-  }
+  if (textIntroSteps.includes(step)) {
+    let title = '';
+    let description = '';
+    let textContent = '';
 
-    if (step === SECTION_C_CARTOON_STEP) {
-    return (
-      <motion.div 
-        className="container mx-auto p-4 md:p-8 max-w-4xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HeaderSection />
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 4: ANALYSING A CARTOON</CardTitle>
-            <CardDescription>Study the cartoon (TEXT E) below and answer the set questions.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <Dialog>
-              <DialogTrigger asChild>
-                <div className="relative w-full max-w-2xl cursor-zoom-in group">
-                    <Image
-                        src="/Text-E.png"
-                        alt="Cartoon for Analysis"
-                        data-ai-hint="comic strip"
-                        width={800}
-                        height={600}
-                        className="rounded-md w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
-                        <ZoomIn className="h-12 w-12 text-white" />
-                    </div>
-                </div>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 border-none">
-                 <DialogTitle className="sr-only">Cartoon for Analysis</DialogTitle>
-                 <Image
-                    src="/Text-E.png"
-                    alt="Cartoon for Analysis"
-                    width={1000}
-                    height={750}
-                    className="rounded-md w-full h-auto"
-                />
-              </DialogContent>
-            </Dialog>
-          </CardContent>
-        </Card>
-        <div className="mt-6 flex justify-between">
-          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
-            <ChevronLeft className="mr-2" /> Previous
-          </Button>
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            Start Questions <ChevronRight className="ml-2" />
-          </Button>
-        </div>
-      </motion.div>
-    );
-  }
+    if (step === SECTION_5_TEXT_F_STEP) {
+      title = 'SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS';
+      description = 'Read the text (TEXT F) below and answer the set questions.';
+      textContent = textFContent;
+    }
 
-  if (step === SECTION_5_TEXT_F_STEP) {
     return (
       <motion.div 
         className="container mx-auto p-4 md:p-8 max-w-4xl"
@@ -685,12 +650,12 @@ export function Grade12P1Client() {
         <HeaderSection />
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS</CardTitle>
-            <CardDescription>Read the text (TEXT F) below and answer the set questions.</CardDescription>
+            <CardTitle className="font-headline text-xl">{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col items-center">
             <ScrollArea className="h-96 w-full rounded-md border p-4 whitespace-pre-wrap text-sm leading-relaxed">
-              {textFContent}
+              {textContent}
             </ScrollArea>
           </CardContent>
         </Card>
@@ -706,82 +671,22 @@ export function Grade12P1Client() {
     );
   }
 
-  if (step === SECTION_5_TEXT_G_STEP) {
-    return (
-      <motion.div 
-        className="container mx-auto p-4 md:p-8 max-w-4xl"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <HeaderSection />
-        <Card>
-          <CardHeader>
-            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 5: LANGUAGE AND EDITING SKILLS</CardTitle>
-            <CardDescription>Study the text (TEXT G) below and answer the set questions.</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <Dialog>
-              <DialogTrigger asChild>
-                <div className="relative w-full max-w-lg cursor-zoom-in group">
-                    <Image
-                        src="/Text-g-image.png"
-                        alt="Text G for Analysis"
-                        data-ai-hint="text passage"
-                        width={800}
-                        height={600}
-                        className="rounded-md w-full h-auto"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
-                        <ZoomIn className="h-12 w-12 text-white" />
-                    </div>
-                </div>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl p-0 border-none">
-                 <DialogTitle className="sr-only">Text G for Analysis</DialogTitle>
-                 <Image
-                    src="/Text-g-image.png"
-                    alt="Text G for Analysis"
-                    width={1000}
-                    height={750}
-                    className="rounded-md w-full h-auto"
-                />
-              </DialogContent>
-            </Dialog>
-          </CardContent>
-        </Card>
-        <div className="mt-6 flex justify-between">
-          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
-            <ChevronLeft className="mr-2" /> Previous
-          </Button>
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            Start Questions <ChevronRight className="ml-2" />
-          </Button>
-        </div>
-      </motion.div>
-    );
-  }
-
-
   let currentQuestion: any;
     if (step > 0 && step < COMPREHENSION_TEXT_B_STEP) {
       currentQuestion = questions_part_a[step - 1];
   } else if (step >= COMPREHENSION_Q_B_START_STEP && step < SUMMARY_STEP) {
       currentQuestion = questions_part_b[step - COMPREHENSION_Q_B_START_STEP];
-  } else if (step > SUMMARY_STEP && step < SECTION_C_CARTOON_STEP) {
+  } else if (step > SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
-  } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
+  } else if (step > SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
       currentQuestion = questions_sec_c_q4[step - SECTION_C_Q4_START_STEP];
-  } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
+  } else if (step > SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
       currentQuestion = allSection5_Q5_1_Questions[step - SECTION_5_Q5_1_START_STEP];
-  } else if (step >= SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
+  } else if (step > SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
       currentQuestion = allSection5_Q5_2_Questions[step - SECTION_5_Q5_2_START_STEP];
   }
 
   if (!currentQuestion) {
-      // This can happen on intermediate steps like showing a text.
-      // The individual if blocks for those steps should handle rendering.
-      // If we fall through, it's an error state.
       return <div className="container mx-auto p-4 md:p-8 max-w-4xl">Loading...</div>
   }
 
@@ -798,7 +703,7 @@ export function Grade12P1Client() {
       <HeaderSection />
       <Card>
         <CardHeader>
-            <CardTitle className="font-headline text-xl">Question {currentQuestion.id}</CardTitle>
+            <CardTitle className="font-headline text-lg md:text-xl">Question {currentQuestion.id}</CardTitle>
             <CardDescription className="pt-2 text-base text-foreground whitespace-pre-wrap">{currentQuestion.prompt}</CardDescription>
         </CardHeader>
         <CardContent>
