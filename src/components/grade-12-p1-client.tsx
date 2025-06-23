@@ -13,6 +13,9 @@ import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { motion } from 'framer-motion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const comprehensionText = `
 The words artificial intelligence (AI) seem to be on the tip of everyone's tongue lately. Once the subject of science fiction fantasies, AI is now a reality that is reshaping our world in profound ways. From the algorithms that recommend our next movie to the complex systems that can diagnose diseases, AI is fast becoming one of the most important technologies of our time. At its core, artificial intelligence is a branch of computer science that aims to create machines capable of intelligent behaviour. This includes learning, reasoning, problem-solving, perception, and language understanding.
@@ -23,6 +26,28 @@ The future of AI is exciting and transforms the way we interact with technology.
 
 However, like any powerful tool, AI has its limitations and must be used responsibly. It is important to be aware of the potential biases in AI algorithms and to ensure that the technology is used in a way that is fair and equitable. As we continue to embrace AI, it is crucial that we do so with a critical eye, ensuring that it serves humanity in a positive and beneficial way.
 `;
+
+const summaryTextContent = `HOW TO GET ACTIVE
+
+Being physically active is important for one's well-being. Keeping active does not have to be strenuous or time-consuming.
+
+Regular walking can make a big difference to your overall health. A twenty-minute walk with your dog will not only make your pet happy, but it will also get your heart pumping.
+
+Take every opportunity to move your feet and you will be surprised at how much more active you will be. It is as easy as pacing while you talk on your cellphone. If walking is not an option, consider cycling. When you cycle to work or school, it is not only good for your health, but also for the environment.
+
+Make it a rule to always take the stairs instead of the escalator or lift. You do not have to climb twenty floors – even one or two floors will have you feeling stronger than before.
+
+Jogging is another effective way of keeping physically active. You can choose to jog alone or in a group.
+
+Housework is good exercise as well. You can get a real workout by mopping floors, cleaning windows and handwashing clothes.
+
+Rethink the way you work. Instead of slumping in your office chair every day, remember to get up and stretch and take a few steps every half an hour.
+
+Have a dance party. You can set one up in your home. Just dim the lights, play your favourite music and have fun. Dancing is a fantastic workout as it gets you moving.
+
+Every bit counts!
+
+[Adapted from https://magazines.dischem.co.za/]`;
 
 const questions_part_a = [
   { id: '1.1.1', prompt: 'Why is artificial intelligence considered one of the most important technologies?', marks: 1 },
@@ -50,9 +75,11 @@ const questions_part_b = [
 const allQuestions = [...questions_part_a, ...questions_part_b];
 
 const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
-const TOTAL_QUESTIONS = allQuestions.length;
+const TOTAL_COMPREHENSION_QUESTIONS = allQuestions.length;
 const TEXT_B_VISUAL_STEP = TEXT_A_QUESTIONS_COUNT + 1;
-const TOTAL_STEPS = TOTAL_QUESTIONS + 1; 
+const TOTAL_QUESTION_STEPS = TOTAL_COMPREHENSION_QUESTIONS + 1; // +1 for the visual page
+const SUMMARY_STEP = TOTAL_QUESTION_STEPS + 1;
+const TOTAL_STEPS = SUMMARY_STEP;
 
 const EXAM_DURATION = 60 * 60; // 60 minutes in seconds
 
@@ -61,21 +88,33 @@ export function Grade12P1Client() {
   const { toast } = useToast();
   const [step, setStep] = useState(0); // 0 is intro
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+  const [summary, setSummary] = useState('');
+  const [wordCount, setWordCount] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXAM_DURATION);
   const [examStarted, setExamStarted] = useState(false);
 
   useEffect(() => {
     const savedAnswers = localStorage.getItem('comprehensionAnswers');
+    const savedSummary = localStorage.getItem('summaryAnswer');
     if (savedAnswers) {
       setAnswers(JSON.parse(savedAnswers));
+    }
+    if (savedSummary) {
+      setSummary(savedSummary);
+      setWordCount(savedSummary.trim().split(/\s+/).filter(Boolean).length);
     }
   }, []);
 
   useEffect(() => {
-    if (Object.keys(answers).length > 0) {
-      localStorage.setItem('comprehensionAnswers', JSON.stringify(answers));
+    if (examStarted) {
+      if (Object.keys(answers).length > 0) {
+        localStorage.setItem('comprehensionAnswers', JSON.stringify(answers));
+      }
+      if (summary) {
+          localStorage.setItem('summaryAnswer', summary);
+      }
     }
-  }, [answers]);
+  }, [answers, summary, examStarted]);
 
   useEffect(() => {
     if (!examStarted || timeLeft <= 0) {
@@ -97,6 +136,12 @@ export function Grade12P1Client() {
 
   const handleAnswerChange = (id: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSummaryChange = (value: string) => {
+    setSummary(value);
+    const words = value.trim().split(/\s+/).filter(Boolean);
+    setWordCount(words.length);
   };
 
   const handleStartExam = () => {
@@ -129,6 +174,7 @@ export function Grade12P1Client() {
       }
     }
     localStorage.removeItem('comprehensionAnswers');
+    localStorage.removeItem('summaryAnswer');
     router.push('/grade-12/english-p1/submitted');
   };
 
@@ -152,9 +198,11 @@ export function Grade12P1Client() {
             <CardDescription className="text-foreground">Read the following passage carefully and then answer the questions.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="max-w-none text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-                {comprehensionText}
-            </div>
+            <ScrollArea className="h-72 w-full rounded-md border p-4">
+              <div className="max-w-none text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+                  {comprehensionText}
+              </div>
+            </ScrollArea>
             <Button onClick={handleStartExam} size="lg" className="w-full md:w-auto">Start Questions</Button>
           </CardContent>
         </Card>
@@ -162,15 +210,21 @@ export function Grade12P1Client() {
     );
   }
 
-  let questionNumber = 0;
-  if (step <= TEXT_A_QUESTIONS_COUNT) {
-    questionNumber = step;
-  } else if (step > TEXT_B_VISUAL_STEP) {
-    questionNumber = step - 1;
+  const progressValue = (step / TOTAL_STEPS) * 100;
+  let pageTitle: string;
+  let questionNumberForTitle = 0;
+
+  if (step <= TOTAL_QUESTION_STEPS) {
+      if (step === TEXT_B_VISUAL_STEP) {
+          pageTitle = 'Text B';
+      } else {
+          questionNumberForTitle = step <= TEXT_A_QUESTIONS_COUNT ? step : step - 1;
+          pageTitle = `Question ${questionNumberForTitle} of ${TOTAL_COMPREHENSION_QUESTIONS}`;
+      }
+  } else {
+      pageTitle = 'Section B: Summary';
   }
 
-  const progressValue = questionNumber > 0 ? (questionNumber / TOTAL_QUESTIONS) * 100 : (TEXT_A_QUESTIONS_COUNT / TOTAL_QUESTIONS) * 100;
-  const pageTitle = step === TEXT_B_VISUAL_STEP ? 'Text B' : `Question ${questionNumber} of ${TOTAL_QUESTIONS}`;
 
   const HeaderSection = () => (
       <Card className="mb-6">
@@ -248,15 +302,116 @@ export function Grade12P1Client() {
     );
   }
 
+  if (step === SUMMARY_STEP) {
+    return (
+        <motion.div
+            className="container mx-auto p-4 md:p-8 max-w-4xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
+            <HeaderSection />
+            <Card className="mb-6">
+                <CardHeader>
+                    <CardTitle className="font-headline text-xl">Section B: Summary – Question 2</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <Accordion type="single" collapsible defaultValue="instructions" className="w-full mb-4">
+                        <AccordionItem value="instructions">
+                            <AccordionTrigger className="text-base hover:no-underline">📘 Summary Instructions</AccordionTrigger>
+                            <AccordionContent className="space-y-2 pl-2 text-muted-foreground">
+                                <p>1. Your summary must be written in point form.</p>
+                                <p>2. List your SEVEN points in full sentences, using no more than 70 words.</p>
+                                <p>3. Number your sentences from 1 to 7.</p>
+                                <p>4. Write only ONE point per sentence.</p>
+                                <p>5. Use your OWN words as far as possible.</p>
+                                <p>6. Indicate the total number of words you have used in brackets at the end of your summary.</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                    <Label className="font-bold mb-2 block">Text C</Label>
+                    <ScrollArea className="h-72 w-full rounded-md border p-4 whitespace-pre-wrap text-sm leading-relaxed">
+                        {summaryTextContent}
+                    </ScrollArea>
+                </CardContent>
+            </Card>
+
+            <Card>
+                <CardHeader>
+                    <CardTitle className="font-headline text-xl">Your Summary</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <div className="grid w-full gap-2 relative">
+                                    <Textarea
+                                        id="summary-answer"
+                                        placeholder={`1. ...\n2. ...\n3. ...\n...\n7. ...\n(Total: ___ words)`}
+                                        value={summary}
+                                        onChange={(e) => handleSummaryChange(e.target.value)}
+                                        rows={10}
+                                        className="text-base transition focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-2"
+                                    />
+                                    <div className="text-right text-sm font-medium">
+                                        <span className={wordCount > 70 ? 'text-destructive font-bold' : 'text-muted-foreground'}>
+                                            Word Count: {wordCount} / 70
+                                        </span>
+                                        {wordCount > 70 && <span className="text-destructive font-bold ml-2">Word limit exceeded!</span>}
+                                    </div>
+                                </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Write one complete sentence per point. Use your own words.</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                </CardContent>
+            </Card>
+
+            <div className="mt-6 flex justify-between">
+                <Button
+                    onClick={handlePrev}
+                    variant="outline"
+                    className="transition-all hover:shadow-lg"
+                >
+                    <ChevronLeft className="mr-2 h-4 w-4" /> Previous
+                </Button>
+                <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="default" className="transition-all hover:shadow-lg bg-green-600 hover:bg-green-700 text-white">
+                           ✅ Submit Answer
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                This will conclude the exam. You cannot make changes after submitting.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleSubmit(false)}>Submit Exam</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            </div>
+        </motion.div>
+    );
+  }
+
   const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : step - 2;
   const currentQuestion = allQuestions[questionIndex];
   
   return (
     <motion.div 
       className="container mx-auto p-4 md:p-8 max-w-4xl"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, x: 50 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: -50 }}
+      key={step}
+      transition={{ duration: 0.3 }}
     >
       <HeaderSection />
       <Card>
@@ -275,7 +430,7 @@ export function Grade12P1Client() {
               value={answers[currentQuestion.id] || ''}
               onChange={(e) => handleAnswerChange(currentQuestion.id, e.target.value)}
               rows={8}
-              className="text-base"
+              className="text-base transition focus-visible:ring-offset-2 focus-visible:ring-ring focus-visible:ring-2"
             />
           </div>
         </CardContent>
@@ -288,32 +443,11 @@ export function Grade12P1Client() {
           variant="outline"
           className="transition-all hover:shadow-lg"
         >
-          <ChevronLeft className="mr-2" /> Previous
+          <ChevronLeft className="mr-2 h-4 w-4" /> Previous
         </Button>
-
-        {step < TOTAL_STEPS ? (
-          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
-            Next <ChevronRight className="ml-2" />
-          </Button>
-        ) : (
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="destructive" className="transition-all hover:shadow-lg">Submit Exam</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure you want to submit?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Please ensure all questions are answered. You cannot make changes after submitting.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={() => handleSubmit(false)}>Submit</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        )}
+        <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+            {step === TOTAL_QUESTION_STEPS ? 'Go to Summary' : 'Next'} <ChevronRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
     </motion.div>
   );
