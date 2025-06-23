@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Zap, Award } from 'lucide-react';
+import { Users, Zap, Award, BookOpenCheck } from 'lucide-react';
 
 export function LandingPage() {
   const features = [
@@ -19,6 +19,11 @@ export function LandingPage() {
       icon: <Award className="h-8 w-8 text-white" />,
       title: 'Track Your Progress',
       description: 'Monitor your scores and completion status on your personal dashboard to see how you improve over time.',
+    },
+    {
+      icon: <BookOpenCheck className="h-8 w-8 text-white" />,
+      title: 'Purchase Expert Courses',
+      description: 'Access premium courses designed by experts to master specific subjects and exam sections.',
     },
   ];
 
@@ -59,7 +64,7 @@ export function LandingPage() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 mt-12">
+            <div className="mx-auto grid max-w-6xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-4 mt-12">
               {features.map((feature, index) => (
                 <Card key={index} className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white border-none shadow-lg">
                   <CardHeader className="flex flex-col items-center text-center">
