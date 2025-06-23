@@ -76,7 +76,7 @@ const questions_part_b = [
   { id: '1.12', prompt: 'In your opinion, is it easier to understand the visuals used in TEXT B or the written text in TEXT B? Substantiate your answer.', marks: 2, type: 'textarea' },
 ];
 
-const questions_sec_c = [
+const questions_sec_c_q3 = [
   { id: '3.1', prompt: 'Choose the correct answer to complete the following sentence:\nThe ® next to the word Sinutab indicates that this is a … trademark.', type: 'radio', options: ['recorded', 'renewing', 'registered', 'recovering'], marks: 1 },
   { id: '3.2.1', prompt: 'To which need does the advertiser appeal?', type: 'text', marks: 1 },
   { id: '3.2.2', prompt: 'Explain the advertiser\'s intention in using the word, ‘yourself’.', type: 'textarea', marks: 2 },
@@ -86,17 +86,30 @@ const questions_sec_c = [
   { id: '3.6', prompt: 'Does the visual of the curved arrow support the message of the advertisement? Substantiate your answer.', type: 'textarea', marks: 2 },
 ];
 
+const questions_sec_c_q4 = [
+  { id: '4.1.1', prompt: "Choose the correct answer to complete the following sentence:\n\nIn the context of this cartoon, the words 'finally gave in' suggest that Mr Wilson is usually …", type: 'radio', options: ['obliging', 'stubborn', 'agreeable', 'unfriendly'], marks: 1 },
+  { id: '4.1.2', prompt: "Identify the punctuation mark used in the following:\n\nWow!", type: 'text', marks: 1 },
+  { id: '4.2', prompt: 'Explain why the visual is different in Frame 4. State TWO points.', type: 'textarea', marks: 2 },
+  { id: '4.3', prompt: 'Explain how the cartoonist conveys that Mr Wilson is unhappy.\n\nRefer to ONE verbal and ONE visual clue in your answer.', type: 'textarea', marks: 2 },
+  { id: '4.4', prompt: 'How does the cartoonist succeed in stereotyping Mr and Mrs Wilson as elderly? Make reference to BOTH Mr and Mrs Wilson.', type: 'textarea', marks: 2 },
+  { id: '4.5', prompt: 'Do you think Mrs Wilson’s comment is humorous? Substantiate your answer.', type: 'textarea', marks: 2 },
+];
+
 const allComprehensionQuestions = [...questions_part_a, ...questions_part_b];
+const allSectionC_Q3_Questions = [...questions_sec_c_q3];
+const allSectionC_Q4_Questions = [...questions_sec_c_q4];
 
 const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
 const COMPREHENSION_TEXT_B_STEP = TEXT_A_QUESTIONS_COUNT + 1;
 const COMPREHENSION_QUESTIONS_END_STEP = COMPREHENSION_TEXT_B_STEP + questions_part_b.length;
 const SUMMARY_STEP = COMPREHENSION_QUESTIONS_END_STEP + 1;
 const SECTION_C_AD_STEP = SUMMARY_STEP + 1;
-const SECTION_C_START_STEP = SECTION_C_AD_STEP + 1;
-const TOTAL_STEPS = SECTION_C_AD_STEP + questions_sec_c.length;
+const SECTION_C_Q3_START_STEP = SECTION_C_AD_STEP + 1;
+const SECTION_C_CARTOON_STEP = SECTION_C_Q3_START_STEP + allSectionC_Q3_Questions.length;
+const SECTION_C_Q4_START_STEP = SECTION_C_CARTOON_STEP + 1;
+const TOTAL_STEPS = SECTION_C_CARTOON_STEP + allSectionC_Q4_Questions.length;
 
-const EXAM_DURATION = 90 * 60; // 90 minutes in seconds
+const EXAM_DURATION = 120 * 60; // 120 minutes in seconds
 
 export function Grade12P1Client() {
   const router = useRouter();
@@ -174,9 +187,14 @@ export function Grade12P1Client() {
 
   const handleSubmit = (force = false) => {
     if (!force) {
-      const unansweredComprehension = allComprehensionQuestions.filter(q => !answers[q.id]?.trim());
-      const unansweredSectionC = questions_sec_c.filter(q => !answers[q.id]?.trim());
-      if (unansweredComprehension.length > 0 || unansweredSectionC.length > 0 || !summary.trim()) {
+      const allQuestions = [
+        ...allComprehensionQuestions,
+        ...allSectionC_Q3_Questions,
+        ...allSectionC_Q4_Questions,
+      ];
+      const unansweredQuestions = allQuestions.filter(q => !answers[q.id]?.trim());
+
+      if (unansweredQuestions.length > 0 || !summary.trim()) {
         toast({
           title: "Incomplete Exam",
           description: `Please answer all questions before submitting.`,
@@ -206,16 +224,11 @@ export function Grade12P1Client() {
       >
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline text-2xl">SECTION A: COMPREHENSION</CardTitle>
-            <CardDescription className="text-foreground">Read the following passage carefully and then answer the questions.</CardDescription>
+            <CardTitle className="font-headline text-2xl">Grade 12 English FAL Paper 1</CardTitle>
+            <CardDescription className="text-foreground">This paper consists of three sections: Comprehension, Summary, and Language. You have 2 hours to complete it.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <ScrollArea className="h-72 w-full rounded-md border p-4">
-              <div className="max-w-none text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-                  {comprehensionText}
-              </div>
-            </ScrollArea>
-            <Button onClick={handleStartExam} size="lg" className="w-full md:w-auto">Start Questions</Button>
+             <Button onClick={handleStartExam} size="lg" className="w-full md:w-auto">Start Exam</Button>
           </CardContent>
         </Card>
       </motion.div>
@@ -231,14 +244,24 @@ export function Grade12P1Client() {
       const questionIndex = step <= TEXT_A_QUESTIONS_COUNT ? step - 1 : step - 2;
       const question = allComprehensionQuestions[questionIndex];
       pageTitle = `Comprehension Question ${question.id}`;
+      totalMarks = 30;
   } else if (step === SUMMARY_STEP) {
       pageTitle = 'Section B: Summary';
+      totalMarks = 10;
   } else if (step === SECTION_C_AD_STEP) {
       pageTitle = 'Section C: Advertisement Analysis';
       totalMarks = 10;
-  } else if (step >= SECTION_C_START_STEP) {
-      const questionIndex = step - SECTION_C_START_STEP;
-      const question = questions_sec_c[questionIndex];
+  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
+      const questionIndex = step - SECTION_C_Q3_START_STEP;
+      const question = questions_sec_c_q3[questionIndex];
+      pageTitle = `Language Question ${question.id}`;
+      totalMarks = 10;
+  } else if (step === SECTION_C_CARTOON_STEP) {
+      pageTitle = 'Section C: Cartoon Analysis';
+      totalMarks = 10;
+  } else if (step >= SECTION_C_Q4_START_STEP) {
+      const questionIndex = step - SECTION_C_Q4_START_STEP;
+      const question = questions_sec_c_q4[questionIndex];
       pageTitle = `Language Question ${question.id}`;
       totalMarks = 10;
   } else {
@@ -302,6 +325,7 @@ export function Grade12P1Client() {
                 <Image
                     src="/Text-B-Image.png"
                     alt="The Benefits of Reading"
+                    data-ai-hint="infographic benefits"
                     width={720}
                     height={1024}
                     className="rounded-md w-full h-auto"
@@ -422,6 +446,7 @@ export function Grade12P1Client() {
                     <Image
                         src="/SectionC-TextD-Ad.jpg"
                         alt="Sinutab Advertisement for Analysis"
+                        data-ai-hint="medicine advertisement"
                         width={800}
                         height={1131}
                         className="rounded-md w-full h-auto"
@@ -455,14 +480,72 @@ export function Grade12P1Client() {
     );
   }
 
+    if (step === SECTION_C_CARTOON_STEP) {
+    return (
+      <motion.div 
+        className="container mx-auto p-4 md:p-8 max-w-4xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <HeaderSection />
+        <Card>
+          <CardHeader>
+            <CardTitle className="font-headline text-xl">SECTION C: LANGUAGE – QUESTION 4: ANALYSING A CARTOON</CardTitle>
+            <CardDescription>Study the cartoon (TEXT E) below and answer the set questions.</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col items-center">
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="relative w-full max-w-2xl cursor-zoom-in group">
+                    <Image
+                        src="/Cartoon-TextE.jpg"
+                        alt="Cartoon for Analysis"
+                        data-ai-hint="comic strip"
+                        width={800}
+                        height={600}
+                        className="rounded-md w-full h-auto"
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-md">
+                        <ZoomIn className="h-12 w-12 text-white" />
+                    </div>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl p-0 border-none">
+                 <Image
+                    src="/Cartoon-TextE.jpg"
+                    alt="Cartoon for Analysis"
+                    width={1000}
+                    height={750}
+                    className="rounded-md w-full h-auto"
+                />
+              </DialogContent>
+            </Dialog>
+          </CardContent>
+        </Card>
+        <div className="mt-6 flex justify-between">
+          <Button onClick={handlePrev} variant="outline" className="transition-all hover:shadow-lg">
+            <ChevronLeft className="mr-2" /> Previous
+          </Button>
+          <Button onClick={handleNext} className="transition-all hover:shadow-lg">
+            Start Questions <ChevronRight className="ml-2" />
+          </Button>
+        </div>
+      </motion.div>
+    );
+  }
+
   let currentQuestion: any;
-  if (step > 0 && step <= COMPREHENSION_TEXT_B_STEP) {
+    if (step > 0 && step <= TEXT_A_QUESTIONS_COUNT) {
       currentQuestion = allComprehensionQuestions[step - 1];
   } else if (step > COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
-      currentQuestion = allComprehensionQuestions[step - 2];
-  } else if (step >= SECTION_C_START_STEP && step <= TOTAL_STEPS) {
-      currentQuestion = questions_sec_c[step - SECTION_C_START_STEP];
+      currentQuestion = allComprehensionQuestions[step - 2 + questions_part_a.length];
+  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
+      currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
+  } else if (step >= SECTION_C_Q4_START_STEP && step <= TOTAL_STEPS) {
+      currentQuestion = questions_sec_c_q4[step - SECTION_C_Q4_START_STEP];
   }
+
 
   return (
     <motion.div 
