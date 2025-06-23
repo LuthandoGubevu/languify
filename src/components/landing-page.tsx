@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { CheckCircle, Zap, Award } from 'lucide-react';
+import { Users, Zap, Award } from 'lucide-react';
 
 export function LandingPage() {
   const features = [
@@ -12,9 +12,9 @@ export function LandingPage() {
       description: 'Experience real exam conditions with our timed, interactive tests that mimic the actual exam format.',
     },
     {
-      icon: <CheckCircle className="h-8 w-8 text-primary" />,
-      title: 'AI-Powered Feedback',
-      description: 'Receive detailed, instant feedback on your performance, with comments and suggestions for improvement.',
+      icon: <Users className="h-8 w-8 text-primary" />,
+      title: 'Expert Teacher Feedback',
+      description: 'Receive detailed feedback from qualified teachers, with comments and suggestions for improvement.',
     },
     {
       icon: <Award className="h-8 w-8 text-primary" />,
@@ -33,7 +33,7 @@ export function LandingPage() {
                   Master Your Language Exams with Languify
                 </h1>
                 <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl">
-                  Our platform provides realistic practice tests and AI-driven feedback to help you ace your language proficiency exams.
+                  Our platform provides realistic practice tests and feedback from real teachers to help you ace your language proficiency exams.
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
