@@ -121,8 +121,8 @@ const allSectionC_Q4_Questions = [...questions_sec_c_q4];
 const allSection5_Q5_1_Questions = [...questions_sec_5_q5_1];
 const allSection5_Q5_2_Questions = [...questions_sec_5_q5_2];
 
-
-const COMPREHENSION_TEXT_B_STEP = 1 + questions_part_a.length;
+const TEXT_A_QUESTIONS_COUNT = questions_part_a.length;
+const COMPREHENSION_TEXT_B_STEP = 1 + TEXT_A_QUESTIONS_COUNT;
 const COMPREHENSION_Q_B_START_STEP = COMPREHENSION_TEXT_B_STEP + 1;
 const SUMMARY_STEP = COMPREHENSION_Q_B_START_STEP + questions_part_b.length;
 const SECTION_C_AD_STEP = SUMMARY_STEP + 1;
@@ -296,40 +296,44 @@ export function Grade12P1Client() {
   } else if (step === SUMMARY_STEP) {
     pageTitle = 'Section B: Summary';
     totalMarks = 10;
-  } else if (step === SECTION_C_AD_STEP) {
-    pageTitle = 'Section C: Analysing an Advertisement';
-    totalMarks = 20;
-  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
-    const questionIndex = step - SECTION_C_Q3_START_STEP;
-    const question = questions_sec_c_q3[questionIndex];
-    pageTitle = `Language Question ${question.id}`;
-    totalMarks = 20;
-  } else if (step === SECTION_C_CARTOON_STEP) {
-    pageTitle = 'Section C: Analysing a Cartoon';
-    totalMarks = 20;
-  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_5_TEXT_F_STEP) {
-    const questionIndex = step - SECTION_C_Q4_START_STEP;
-    const question = questions_sec_c_q4[questionIndex];
-    pageTitle = `Language Question ${question.id}`;
-    totalMarks = 20;
-  } else if (step === SECTION_5_TEXT_F_STEP) {
-    pageTitle = 'Section 5: Language and Editing Skills';
-    totalMarks = 20;
-  } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
-    const questionIndex = step - SECTION_5_Q5_1_START_STEP;
-    const question = allSection5_Q5_1_Questions[questionIndex];
-    pageTitle = `Language & Editing Question ${question.id}`;
-    totalMarks = 20;
-  } else if (step === SECTION_5_TEXT_G_STEP) {
-    pageTitle = 'Section 5: Language and Editing Skills';
-    totalMarks = 20;
-  } else if (step >= SECTION_5_Q5_2_START_STEP && step <= LAST_QUESTION_STEP) {
-    const questionIndex = step - SECTION_5_Q5_2_START_STEP;
-    const question = allSection5_Q5_2_Questions[questionIndex];
-    pageTitle = `Language & Editing Question ${question.id}`;
-    totalMarks = 20;
+  } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
+      if(imageIntroSteps.includes(step)){
+        pageTitle = 'Section C: Analysing an Advertisement';
+      } else {
+        const questionIndex = step - SECTION_C_Q3_START_STEP;
+        const question = questions_sec_c_q3[questionIndex];
+        pageTitle = `Language Question ${question.id}`;
+      }
+      totalMarks = 10;
+  } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
+      if(imageIntroSteps.includes(step)){
+        pageTitle = 'Section C: Analysing a Cartoon';
+      } else {
+        const questionIndex = step - SECTION_C_Q4_START_STEP;
+        const question = questions_sec_c_q4[questionIndex];
+        pageTitle = `Language Question ${question.id}`;
+      }
+      totalMarks = 10;
+  } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
+      if(imageIntroSteps.includes(step)){
+        pageTitle = 'Section 5: Language and Editing Skills';
+      } else {
+        const questionIndex = step - SECTION_5_Q5_1_START_STEP;
+        const question = allSection5_Q5_1_Questions[questionIndex];
+        pageTitle = `Language & Editing Question ${question.id}`;
+      }
+      totalMarks = 20;
+  } else if (step >= SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
+      if(imageIntroSteps.includes(step)){
+        pageTitle = 'Section 5: Language and Editing Skills';
+      } else {
+        const questionIndex = step - SECTION_5_Q5_2_START_STEP;
+        const question = allSection5_Q5_2_Questions[questionIndex];
+        pageTitle = `Language & Editing Question ${question.id}`;
+      }
+      totalMarks = 20;
   } else {
-    pageTitle = 'Instructions';
+      pageTitle = 'Instructions';
   }
 
   const HeaderSection = () => {
@@ -338,7 +342,7 @@ export function Grade12P1Client() {
     if (step >= COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
         currentImage = { src: '/Text-B-Image.png', alt: 'Text B: The Benefits of Reading', buttonText: 'View Text B', width: 720, height: 1024 };
     } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
-        currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Advertisement', width: 1000, height: 1414 };
+        currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Text D', width: 1000, height: 1414 };
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
     } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
