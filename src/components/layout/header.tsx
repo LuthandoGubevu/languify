@@ -14,14 +14,6 @@ export function Header() {
               Languify
             </span>
           </Link>
-          <nav className="flex items-center space-x-6 text-sm font-medium">
-            <Link
-              href="/dashboard"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              Dashboard
-            </Link>
-          </nav>
         </div>
 
         <div className="flex items-center md:hidden">
@@ -38,11 +30,6 @@ export function Header() {
                   <BookText className="h-6 w-6 text-primary" />
                   <span className="font-bold font-headline">Languify</span>
                 </Link>
-                <div className="flex flex-col space-y-3">
-                  <Link href="/dashboard" className="transition-colors hover:text-foreground/80">
-                    Dashboard
-                  </Link>
-                </div>
               </SheetContent>
             </Sheet>
         </div>
