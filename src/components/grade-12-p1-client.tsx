@@ -358,7 +358,7 @@ export function Grade12P1Client() {
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
     } else if (step >= SECTION_5_TEXT_G_STEP) {
-        currentImage = { src: '/Text-G-image.png', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
+        currentImage = { src: '/Text-g-image.png', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
     }
 
     return (
@@ -725,7 +725,7 @@ export function Grade12P1Client() {
               <DialogTrigger asChild>
                 <div className="relative w-full max-w-lg cursor-zoom-in group">
                     <Image
-                        src="/Text-G-image.png"
+                        src="/Text-g-image.png"
                         alt="Text G for Analysis"
                         data-ai-hint="text passage"
                         width={800}
@@ -740,7 +740,7 @@ export function Grade12P1Client() {
               <DialogContent className="max-w-4xl p-0 border-none">
                  <DialogTitle className="sr-only">Text G for Analysis</DialogTitle>
                  <Image
-                    src="/Text-G-image.png"
+                    src="/Text-g-image.png"
                     alt="Text G for Analysis"
                     width={1000}
                     height={750}
