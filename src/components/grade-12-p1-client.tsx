@@ -299,22 +299,24 @@ export function Grade12P1Client() {
               </div>
               <div className="flex items-center gap-4">
                 {totalMarks > 0 && <Badge variant="secondary">Total Marks: {totalMarks}</Badge>}
-                <Sheet>
-                  <SheetTrigger asChild>
-                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
-                      <BookText className="mr-2 h-4 w-4" />
-                      View Comprehension
-                    </Button>
-                  </SheetTrigger>
-                  <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
-                    <SheetHeader>
-                      <SheetTitle>Comprehension Passage</SheetTitle>
-                    </SheetHeader>
-                    <div className="py-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
-                      {comprehensionText}
-                    </div>
-                  </SheetContent>
-                </Sheet>
+                {step < COMPREHENSION_TEXT_B_STEP && (
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
+                        <BookText className="mr-2 h-4 w-4" />
+                        View Comprehension
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
+                      <SheetHeader>
+                        <SheetTitle>Comprehension Passage</SheetTitle>
+                      </SheetHeader>
+                      <div className="py-4 whitespace-pre-wrap text-sm leading-relaxed text-foreground">
+                        {comprehensionText}
+                      </div>
+                    </SheetContent>
+                  </Sheet>
+                )}
                 <div className="flex items-center gap-2 text-lg font-semibold text-primary p-2 border rounded-md">
                   <Clock className="h-5 w-5" />
                   <span>{formatTime(timeLeft)}</span>
