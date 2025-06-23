@@ -151,6 +151,7 @@ const imageIntroSteps = [
   COMPREHENSION_TEXT_B_STEP,
   SECTION_C_AD_STEP,
   SECTION_C_CARTOON_STEP,
+  SECTION_5_TEXT_F_STEP,
   SECTION_5_TEXT_G_STEP,
 ];
 
@@ -306,8 +307,8 @@ export function Grade12P1Client() {
   } else if (step === SUMMARY_STEP) {
     pageTitle = 'Section B: Summary';
     totalMarks = 10;
-  } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
-      if(imageIntroSteps.includes(step)){
+  } else if (step > SUMMARY_STEP && step < SECTION_C_CARTOON_STEP) {
+      if(step === SECTION_C_AD_STEP){
         pageTitle = 'Section C: Analysing an Advertisement';
       } else {
         const questionIndex = step - SECTION_C_Q3_START_STEP;
@@ -316,7 +317,7 @@ export function Grade12P1Client() {
       }
       totalMarks = 10;
   } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
-      if(imageIntroSteps.includes(step)){
+      if(step === SECTION_C_CARTOON_STEP){
         pageTitle = 'Section C: Analysing a Cartoon';
       } else {
         const questionIndex = step - SECTION_C_Q4_START_STEP;
@@ -334,7 +335,7 @@ export function Grade12P1Client() {
       }
       totalMarks = 20;
   } else if (step >= SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
-      if(imageIntroSteps.includes(step)){
+      if(step === SECTION_5_TEXT_G_STEP){
         pageTitle = 'Section 5: Language and Editing Skills';
       } else {
         const questionIndex = step - SECTION_5_Q5_2_START_STEP;
@@ -351,12 +352,12 @@ export function Grade12P1Client() {
 
     if (step >= COMPREHENSION_TEXT_B_STEP && step < SUMMARY_STEP) {
         currentImage = { src: '/Text-B-Image.png', alt: 'Text B: The Benefits of Reading', buttonText: 'View Text B', width: 720, height: 1024 };
-    } else if (step >= SECTION_C_AD_STEP && step < SECTION_C_CARTOON_STEP) {
+    } else if (step > SUMMARY_STEP && step < SECTION_C_CARTOON_STEP) {
         currentImage = { src: '/Text-D.png', alt: 'Sinutab Advertisement for Analysis', buttonText: 'View Text D', width: 1000, height: 1414 };
     } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
         currentImage = { src: '/Text-E.png', alt: 'Cartoon for Analysis', buttonText: 'View Cartoon', width: 1000, height: 750 };
     } else if (step >= SECTION_5_TEXT_G_STEP) {
-        currentImage = { src: '/Text-G.jpg', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
+        currentImage = { src: '/Text-G-image.png', alt: 'Text G for Analysis', buttonText: 'View Text G', width: 1000, height: 750 };
     }
 
     return (
@@ -370,7 +371,7 @@ export function Grade12P1Client() {
               <div className="flex items-center gap-4">
                 {totalMarks > 0 && <Badge variant="secondary">Total Marks: {totalMarks}</Badge>}
                 
-                {step < COMPREHENSION_TEXT_B_STEP && (
+                {step < SUMMARY_STEP && (
                   <Sheet>
                     <SheetTrigger asChild>
                       <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
@@ -723,7 +724,7 @@ export function Grade12P1Client() {
               <DialogTrigger asChild>
                 <div className="relative w-full max-w-lg cursor-zoom-in group">
                     <Image
-                        src="/Text-G.jpg"
+                        src="/Text-G-image.png"
                         alt="Text G for Analysis"
                         data-ai-hint="text passage"
                         width={800}
@@ -738,7 +739,7 @@ export function Grade12P1Client() {
               <DialogContent className="max-w-4xl p-0 border-none">
                  <DialogTitle className="sr-only">Text G for Analysis</DialogTitle>
                  <Image
-                    src="/Text-G.jpg"
+                    src="/Text-G-image.png"
                     alt="Text G for Analysis"
                     width={1000}
                     height={750}
@@ -766,13 +767,13 @@ export function Grade12P1Client() {
       currentQuestion = questions_part_a[step - 1];
   } else if (step >= COMPREHENSION_Q_B_START_STEP && step < SUMMARY_STEP) {
       currentQuestion = questions_part_b[step - COMPREHENSION_Q_B_START_STEP];
-  } else if (step >= SECTION_C_Q3_START_STEP && step < SECTION_C_CARTOON_STEP) {
+  } else if (step > SUMMARY_STEP && step < SECTION_C_CARTOON_STEP) {
       currentQuestion = questions_sec_c_q3[step - SECTION_C_Q3_START_STEP];
-  } else if (step >= SECTION_C_Q4_START_STEP && step < SECTION_5_TEXT_F_STEP) {
+  } else if (step >= SECTION_C_CARTOON_STEP && step < SECTION_5_TEXT_F_STEP) {
       currentQuestion = questions_sec_c_q4[step - SECTION_C_Q4_START_STEP];
-  } else if (step >= SECTION_5_Q5_1_START_STEP && step < SECTION_5_TEXT_G_STEP) {
+  } else if (step >= SECTION_5_TEXT_F_STEP && step < SECTION_5_TEXT_G_STEP) {
       currentQuestion = allSection5_Q5_1_Questions[step - SECTION_5_Q5_1_START_STEP];
-  } else if (step >= SECTION_5_Q5_2_START_STEP && step <= LAST_QUESTION_STEP) {
+  } else if (step >= SECTION_5_TEXT_G_STEP && step <= LAST_QUESTION_STEP) {
       currentQuestion = allSection5_Q5_2_Questions[step - SECTION_5_Q5_2_START_STEP];
   }
 
