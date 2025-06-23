@@ -136,6 +136,13 @@ const SECTION_5_Q5_2_START_STEP = SECTION_5_TEXT_G_STEP + 1;
 const LAST_QUESTION_STEP = SECTION_5_Q5_2_START_STEP + allSection5_Q5_2_Questions.length - 1;
 const TOTAL_STEPS = LAST_QUESTION_STEP + 1;
 
+const imageIntroSteps = [
+  COMPREHENSION_TEXT_B_STEP,
+  SECTION_C_AD_STEP,
+  SECTION_C_CARTOON_STEP,
+  SECTION_5_TEXT_F_STEP,
+  SECTION_5_TEXT_G_STEP,
+];
 
 const EXAM_DURATION = 120 * 60; // 120 minutes in seconds
 
@@ -370,7 +377,7 @@ export function Grade12P1Client() {
                   </Sheet>
                 )}
 
-                {currentImage && (
+                {currentImage && !imageIntroSteps.includes(step) && (
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90 transition-all hover:shadow-lg">
