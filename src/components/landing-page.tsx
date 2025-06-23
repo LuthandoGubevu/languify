@@ -7,17 +7,17 @@ import { Users, Zap, Award } from 'lucide-react';
 export function LandingPage() {
   const features = [
     {
-      icon: <Zap className="h-8 w-8 text-primary" />,
+      icon: <Zap className="h-8 w-8 text-white" />,
       title: 'Interactive Exam Simulator',
       description: 'Experience real exam conditions with our timed, interactive tests that mimic the actual exam format.',
     },
     {
-      icon: <Users className="h-8 w-8 text-primary" />,
+      icon: <Users className="h-8 w-8 text-white" />,
       title: 'Expert Teacher Feedback',
       description: 'Receive detailed feedback from qualified teachers, with comments and suggestions for improvement.',
     },
     {
-      icon: <Award className="h-8 w-8 text-primary" />,
+      icon: <Award className="h-8 w-8 text-white" />,
       title: 'Track Your Progress',
       description: 'Monitor your scores and completion status on your personal dashboard to see how you improve over time.',
     },
@@ -42,7 +42,7 @@ export function LandingPage() {
                 </Button>
               </div>
               <Image
-                src="/tutor-image.jpg"
+                src="https://placehold.co/600x400.png"
                 data-ai-hint="tutor student"
                 width="600"
                 height="400"
@@ -66,13 +66,13 @@ export function LandingPage() {
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 mt-12">
               {features.map((feature, index) => (
-                <Card key={index} className="bg-background">
+                <Card key={index} className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white border-none shadow-lg">
                   <CardHeader className="flex flex-col items-center text-center">
                     {feature.icon}
                     <CardTitle className="mt-4 font-headline">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <p className="text-muted-foreground">{feature.description}</p>
+                    <p className="text-indigo-100">{feature.description}</p>
                   </CardContent>
                 </Card>
               ))}
