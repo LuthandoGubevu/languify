@@ -42,7 +42,7 @@ export function LandingPage() {
                 </Button>
               </div>
               <Image
-                src="/tutor-image.jpg"
+                src="https://placehold.co/600x400.png"
                 width="600"
                 height="400"
                 alt="Tutor helping a student"
