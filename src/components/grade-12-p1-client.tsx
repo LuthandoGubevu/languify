@@ -157,9 +157,9 @@ export function Grade12P1Client() {
               <div className="flex items-center gap-4">
                 <Sheet>
                   <SheetTrigger asChild>
-                    <Button variant="outline">
+                    <Button className="bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 text-white hover:opacity-90">
                       <BookText className="mr-2 h-4 w-4" />
-                      view comprehension
+                      View Comprehension
                     </Button>
                   </SheetTrigger>
                   <SheetContent side="left" className="w-full sm:max-w-2xl overflow-y-auto">
