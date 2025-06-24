@@ -92,16 +92,14 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-          {userProfile?.plan === 'premium' && (
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActive('/book-tutor')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
-                <Link href="/book-tutor">
-                  <Calendar />
-                  <span>Book a Tutor</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          )}
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={isActive('/book-tutor')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
+              <Link href="/book-tutor">
+                <Calendar />
+                <span>Book a Tutor</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
 
         </SidebarMenu>
       </SidebarContent>
