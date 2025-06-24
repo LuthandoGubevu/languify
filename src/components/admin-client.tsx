@@ -6,7 +6,7 @@ export function AdminClient() {
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Admin Dashboard</h1>
+        <h1 className="text-3xl font-bold font-headline">Hello Dumisa</h1>
         <p className="text-muted-foreground">Manage exams and view student submissions.</p>
       </div>
 
