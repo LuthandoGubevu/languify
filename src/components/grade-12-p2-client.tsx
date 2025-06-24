@@ -11,8 +11,8 @@ const sections = [
   { title: 'Strange Case of Dr Jekyll and Mr Hyde', href: '/grade-12/english-p2/q2' },
   { title: 'Macbeth', href: '/grade-12/english-p2/q3' },
   { title: 'My Children! My Africa!', href: '/grade-12/english-p2/q4' },
-  { title: 'Short Stories', href: '#' },
-  { title: 'Poetry', href: '#' },
+  { title: 'Short Stories', href: '/grade-12/english-p2/q5' },
+  { title: 'Poetry', href: '/grade-12/english-p2/poetry' },
 ];
 
 export function Grade12P2Client() {
