@@ -118,6 +118,10 @@ export function LandingPage() {
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Free access to courses</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
                                     <span>Submit answers for tutor review</span>
                                 </li>
                                 <li className="flex items-center gap-2">
