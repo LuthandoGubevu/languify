@@ -1,3 +1,4 @@
+
 export type PracticePaperStatus = 'Not Started' | 'In Progress' | 'Completed';
 
 export interface PracticePaper {
@@ -62,4 +63,35 @@ export interface Notification {
     description: string;
     icon: React.ReactNode;
     time: string;
+}
+
+// Types for Admin Dashboard
+export interface StudentPerformance {
+  id: string;
+  name: string;
+  grade: number;
+  examsCompleted: number;
+  lastActivity: string;
+  status: 'Top Performer' | 'Average' | 'At Risk';
+}
+
+export interface EngagementData {
+  week: string;
+  p1: number;
+  p2: number;
+  p3: number;
+}
+
+export interface PerformanceData {
+  name: string;
+  avgScore: number;
+  fill: string;
+}
+
+export interface ActionItem {
+    id: string;
+    type: 'Feedback' | 'Booking' | 'Message';
+    studentName: string;
+    title: string;
+    date: string;
 }
