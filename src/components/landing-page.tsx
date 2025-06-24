@@ -107,7 +107,8 @@ export function LandingPage() {
                         </div>
                         <CardHeader className="pb-4 pt-8">
                             <CardTitle className="font-headline text-2xl">Premium Tier</CardTitle>
-                            <p className="text-4xl font-bold">R199<span className="text-lg font-normal text-muted-foreground">/month</span></p>
+                            <p className="text-4xl font-bold">R750</p>
+                            <p className="text-muted-foreground">Once-off payment</p>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
                             <ul className="space-y-3">
