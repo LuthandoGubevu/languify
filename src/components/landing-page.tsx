@@ -46,7 +46,7 @@ export function LandingPage() {
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Button asChild size="lg" className="bg-white text-indigo-600 hover:bg-gray-100 font-bold">
-                  <Link href="/dashboard">Start Practicing</Link>
+                  <Link href="/login">Start Practicing</Link>
                 </Button>
               </div>
             </div>
