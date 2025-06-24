@@ -6,10 +6,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { BookOpenCheck, Calendar, ArrowRight, MessageSquare, Pencil, Sparkles, CheckCircle, Clock, FileText, BarChart2 } from 'lucide-react';
-import type { PracticePaper, Course, TutorSession, Feedback, Task, PerformanceHistory } from '@/lib/types';
+import { BookOpenCheck, Calendar, ArrowRight, Sparkles, CheckCircle, Clock, FileText, BarChart2 } from 'lucide-react';
+import type { PracticePaper, TutorSession, Feedback, Task, PerformanceHistory } from '@/lib/types';
 import { motion } from 'framer-motion';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const mockPapers: PracticePaper[] = [
   { id: 'p1-2024', title: 'Grade 12 English P1', description: 'Comprehension practice.', status: 'Completed', score: 88, totalQuestions: 14, path: '/grade-12/english-p1', progress: 100 },
@@ -22,13 +22,6 @@ const mockTasks: Task[] = [
     { id: 't2', title: 'Submit Creative Writing piece', dueDate: '3 days', status: 'Submitted', href: '#' },
     { id: 't3', title: 'Review Paper 1 Feedback', dueDate: '1 day', status: 'Needs Revision', href: '#' },
 ];
-
-const upcomingSession: TutorSession = {
-    id: 'session-1',
-    title: 'Paper 2 Revision',
-    date: new Date(new Date().getTime() + 2 * 60 * 60 * 1000 + 13 * 60 * 1000).toISOString(), // ~2h 13m from now
-    status: 'Confirmed',
-};
 
 const recentFeedback: (Omit<Feedback['questionFeedback'][0], 'studentAnswer' | 'score'> & { paper: string, date: string, status: 'Unread' | 'Reviewed' }) = {
     questionId: 'fb-1',
@@ -51,16 +44,30 @@ const cardVariants = {
 };
 
 export function DashboardClient() {
-    const [countdown, setCountdown] = useState('');
+    const [upcomingSession, setUpcomingSession] = useState<TutorSession | null>(null);
+    const [countdown, setCountdown] = useState('Loading...');
+    const [sessionTime, setSessionTime] = useState('');
 
     useEffect(() => {
-        const calculateCountdown = () => {
-            const sessionDate = new Date(upcomingSession.date);
+        // This effect runs only once on the client after the component mounts.
+        // It prevents hydration errors by ensuring date calculations happen only in the browser.
+        const sessionDate = new Date(new Date().getTime() + 2 * 60 * 60 * 1000 + 13 * 60 * 1000);
+        const session = {
+            id: 'session-1',
+            title: 'Paper 2 Revision',
+            date: sessionDate.toISOString(),
+            status: 'Confirmed' as 'Confirmed',
+        };
+        setUpcomingSession(session);
+        setSessionTime(sessionDate.toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' }));
+
+        const timer = setInterval(() => {
             const now = new Date();
             const difference = sessionDate.getTime() - now.getTime();
 
             if (difference <= 0) {
                 setCountdown('Session has started');
+                clearInterval(timer);
                 return;
             }
 
@@ -69,9 +76,8 @@ export function DashboardClient() {
             const seconds = Math.floor((difference / 1000) % 60);
 
             setCountdown(`${hours}h ${minutes}m ${seconds}s`);
-        };
+        }, 1000);
 
-        const timer = setInterval(calculateCountdown, 1000);
         return () => clearInterval(timer);
     }, []);
 
@@ -213,15 +219,21 @@ export function DashboardClient() {
                         <CardDescription>Your scheduled one-on-one sessions.</CardDescription>
                     </CardHeader>
                     <CardContent className="flex-grow">
-                        <div className="text-center p-4 border border-dashed rounded-lg">
-                            <p className="font-semibold">{upcomingSession.title}</p>
-                            <p className="text-2xl font-bold text-primary my-2">{countdown || "Loading..."}</p>
-                            <p className="text-sm text-muted-foreground">{new Date(upcomingSession.date).toLocaleString('en-US', { weekday: 'long', hour: '2-digit', minute: '2-digit' })}</p>
-                        </div>
+                        {upcomingSession ? (
+                            <div className="text-center p-4 border border-dashed rounded-lg">
+                                <p className="font-semibold">{upcomingSession.title}</p>
+                                <p className="text-2xl font-bold text-primary my-2">{countdown}</p>
+                                <p className="text-sm text-muted-foreground">{sessionTime}</p>
+                            </div>
+                        ) : (
+                             <div className="text-center p-4 border border-dashed rounded-lg flex items-center justify-center h-full min-h-[140px]">
+                                <p className="text-muted-foreground">Loading session...</p>
+                            </div>
+                        )}
                     </CardContent>
                     <CardFooter className="grid grid-cols-2 gap-2">
                         <Button variant="outline">Reschedule</Button>
-                        <Button disabled={countdown === 'Session has started' || !countdown}>Join Now</Button>
+                        <Button disabled={!upcomingSession || countdown === 'Session has started'}>Join Now</Button>
                     </CardFooter>
                 </Card>
             </motion.div>
@@ -258,5 +270,3 @@ export function DashboardClient() {
     </div>
   );
 }
-
-    
