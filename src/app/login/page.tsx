@@ -21,6 +21,8 @@ const formSchema = z.object({
   password: z.string().min(1, { message: 'Password is required.' }),
 });
 
+const ADMIN_EMAIL = 'Dumisa.t@curro.co.za';
+
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
@@ -34,8 +36,12 @@ export default function LoginPage() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await signInWithEmailAndPassword(auth, values.email, values.password);
-      router.push('/dashboard');
+      const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
+      if (userCredential.user.email === ADMIN_EMAIL) {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (error: any) {
       toast({
         title: 'Login Failed',
@@ -48,8 +54,12 @@ export default function LoginPage() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      router.push('/dashboard');
+      const result = await signInWithPopup(auth, provider);
+      if (result.user.email === ADMIN_EMAIL) {
+        router.push('/admin');
+      } else {
+        router.push('/dashboard');
+      }
     } catch (error: any) {
         toast({
             title: 'Google Sign-In Failed',
