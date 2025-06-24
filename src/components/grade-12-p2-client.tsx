@@ -10,7 +10,7 @@ const sections = [
   { title: 'Cry, the Beloved Country', href: '/grade-12/english-p2/q1' },
   { title: 'Strange Case of Dr Jekyll and Mr Hyde', href: '/grade-12/english-p2/q2' },
   { title: 'Macbeth', href: '/grade-12/english-p2/q3' },
-  { title: 'My Children! My Africa!', href: '#' },
+  { title: 'My Children! My Africa!', href: '/grade-12/english-p2/q4' },
   { title: 'Short Stories', href: '#' },
   { title: 'Poetry', href: '#' },
 ];
