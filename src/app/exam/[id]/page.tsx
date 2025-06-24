@@ -1,5 +1,7 @@
 import { ExamClient } from '@/components/exam-client';
+import { use } from 'react';
 
 export default function ExamPage({ params }: { params: { id: string } }) {
-  return <ExamClient examId={params.id} />;
+  const resolvedParams = use(params);
+  return <ExamClient examId={resolvedParams.id} />;
 }
