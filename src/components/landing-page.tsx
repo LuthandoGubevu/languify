@@ -83,11 +83,19 @@ export function LandingPage() {
                                 </li>
                                 <li className="flex items-center gap-2 text-muted-foreground">
                                     <XCircle className="h-5 w-5" />
-                                    <span>No tutor feedback</span>
+                                    <span>No answer submissions for review</span>
+                                </li>
+                                <li className="flex items-center gap-2 text-muted-foreground">
+                                    <XCircle className="h-5 w-5" />
+                                    <span>No personalised tutor feedback</span>
                                 </li>
                                 <li className="flex items-center gap-2 text-muted-foreground">
                                     <XCircle className="h-5 w-5" />
                                     <span>No 1:1 tutor sessions</span>
+                                </li>
+                                <li className="flex items-center gap-2 text-muted-foreground">
+                                    <XCircle className="h-5 w-5" />
+                                    <span>No free access to courses</span>
                                 </li>
                             </ul>
                         </CardContent>
