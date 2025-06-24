@@ -50,7 +50,11 @@ export function ActionsPanel({ items }: ActionsPanelProps) {
   }
 
   return (
-    <motion.div variants={cardVariants}>
+    <motion.div 
+        variants={cardVariants}
+        whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(99, 102, 241, 0.1)" }}
+        transition={{ type: "spring", stiffness: 300 }}
+    >
         <Card>
             <CardHeader>
                 <CardTitle className="font-headline">Real-Time Actions</CardTitle>

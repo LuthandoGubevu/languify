@@ -39,7 +39,11 @@ export function PerformanceTable({ students }: PerformanceTableProps) {
   };
 
   return (
-    <motion.div variants={cardVariants}>
+    <motion.div 
+        variants={cardVariants}
+        whileHover={{ y: -5, boxShadow: "0px 10px 20px rgba(99, 102, 241, 0.1)" }}
+        transition={{ type: "spring", stiffness: 300 }}
+    >
         <Card>
         <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
