@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -8,7 +9,7 @@ import { motion } from 'framer-motion';
 const sections = [
   { title: 'Cry, the Beloved Country', href: '/grade-12/english-p2/q1' },
   { title: 'Strange Case of Dr Jekyll and Mr Hyde', href: '/grade-12/english-p2/q2' },
-  { title: 'Macbeth', href: '#' },
+  { title: 'Macbeth', href: '/grade-12/english-p2/q3' },
   { title: 'My Children! My Africa!', href: '#' },
   { title: 'Short Stories', href: '#' },
   { title: 'Poetry', href: '#' },
