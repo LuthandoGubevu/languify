@@ -68,7 +68,7 @@ export function LandingPage() {
                     {/* Free Card */}
                     <Card className="flex h-full flex-col rounded-2xl border-2 border-transparent transition-all duration-300 hover:border-primary/50 hover:shadow-xl">
                         <CardHeader className="pb-4">
-                            <CardTitle className="font-headline text-2xl">Free Tier</CardTitle>
+                            <CardTitle className="font-headline text-2xl">Free Plan</CardTitle>
                             <p className="text-4xl font-bold">R0<span className="text-lg font-normal text-muted-foreground">/month</span></p>
                         </CardHeader>
                         <CardContent className="flex-grow space-y-4">
@@ -106,7 +106,7 @@ export function LandingPage() {
                           </div>
                         </div>
                         <CardHeader className="pb-4 pt-8">
-                            <CardTitle className="font-headline text-2xl">Premium Tier</CardTitle>
+                            <CardTitle className="font-headline text-2xl">Premium Plan</CardTitle>
                             <p className="text-4xl font-bold">R750</p>
                             <p className="text-muted-foreground">Once-off payment</p>
                         </CardHeader>
@@ -114,7 +114,7 @@ export function LandingPage() {
                             <ul className="space-y-3">
                                 <li className="flex items-center gap-2">
                                     <CheckCircle2 className="h-5 w-5 text-green-500" />
-                                    <span>All Free Tier features</span>
+                                    <span>All Free Plan features</span>
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <CheckCircle2 className="h-5 w-5 text-green-500" />
