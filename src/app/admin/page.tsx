@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import type { User } from 'firebase/auth';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { AdminClient } from '@/components/admin-client';
 import { AppHeader } from '@/components/layout/app-header';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/sidebar';
+import { BookText } from 'lucide-react';
 
 // IMPORTANT: In a production application, this email should be stored in a
 // secure environment variable, not hardcoded in the source code.
@@ -21,12 +21,18 @@ export default function AdminPage() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser && currentUser.email === ADMIN_EMAIL) {
-        setIsAdmin(true);
-        setLoading(false);
+      if (currentUser) {
+        // User is authenticated, now check if they are an admin.
+        if (currentUser.email === ADMIN_EMAIL) {
+          setIsAdmin(true);
+          setLoading(false);
+        } else {
+          // User is not an admin, redirect them to the student dashboard.
+          router.push('/dashboard');
+        }
       } else {
-        // If user is not admin or not logged in, redirect them.
-        router.push('/dashboard');
+        // No user is logged in, redirect to the login page.
+        router.push('/login');
       }
     });
 
@@ -35,8 +41,9 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-background">
-        <p className="text-foreground">Verifying access...</p>
+      <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-background">
+        <BookText className="h-12 w-12 text-primary animate-pulse" />
+        <p className="text-muted-foreground">Verifying access...</p>
       </div>
     );
   }
@@ -44,8 +51,9 @@ export default function AdminPage() {
   if (!isAdmin) {
     // This state is briefly shown while redirecting
     return (
-      <div className="flex justify-center items-center h-screen bg-background">
-        <p className="text-foreground">Access Denied. Redirecting...</p>
+       <div className="flex h-screen w-full flex-col items-center justify-center gap-4 bg-background">
+        <BookText className="h-12 w-12 text-destructive" />
+        <p className="text-muted-foreground">Access Denied. Redirecting...</p>
       </div>
     );
   }
