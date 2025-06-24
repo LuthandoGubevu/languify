@@ -64,7 +64,7 @@ export default function AdminPage() {
         <AppSidebar />
         <div className="flex-1 flex flex-col">
             <AppHeader />
-            <main className="flex-1 overflow-y-auto admin-light-theme bg-background">
+            <main className="flex-1 overflow-y-auto admin-light-theme bg-white">
                 <AdminClient />
             </main>
         </div>
