@@ -29,7 +29,6 @@ const formSchema = z.object({
   school: z.string().min(1, { message: 'School name is required.' }),
   grade: z.string({ required_error: 'Please select a grade.' }),
   mobile: z.string().optional(),
-  referralCode: z.string().optional(),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -52,7 +51,6 @@ export default function SignUpPage() {
       school: '',
       grade: '12',
       mobile: '',
-      referralCode: '',
     },
   });
 
@@ -73,7 +71,6 @@ export default function SignUpPage() {
         school: values.school,
         grade: values.grade,
         mobile: values.mobile || '',
-        referralCode: values.referralCode || '',
         createdAt: serverTimestamp(),
         plan: 'free',
       });
@@ -240,7 +237,7 @@ export default function SignUpPage() {
                     )}
                   />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4">
                     <FormField
                       control={form.control}
                       name="mobile"
@@ -251,20 +248,6 @@ export default function SignUpPage() {
                             <Input placeholder="082 123 4567" {...field} />
                           </FormControl>
                            <p className="text-xs text-muted-foreground">For SMS updates</p>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="referralCode"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Referral Code <span className="text-muted-foreground">(Optional)</span></FormLabel>
-                          <FormControl>
-                            <Input placeholder="e.g. FRIEND10" {...field} />
-                          </FormControl>
-                           <p className="text-xs text-muted-foreground invisible">Placeholder</p>
                           <FormMessage />
                         </FormItem>
                       )}
