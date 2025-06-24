@@ -1,8 +1,6 @@
 'use client';
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 export function AdminClient() {
   return (
@@ -21,9 +19,6 @@ export function AdminClient() {
         </CardHeader>
         <CardContent>
           <p>Future features like creating new exams, viewing results, and managing users will go here.</p>
-          <Button asChild variant="secondary" className="mt-4">
-             <Link href="/dashboard">Back to Student Dashboard</Link>
-          </Button>
         </CardContent>
       </Card>
     </div>
