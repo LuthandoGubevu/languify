@@ -10,11 +10,13 @@ import { Sidebar, SidebarHeader, SidebarContent, SidebarMenu, SidebarMenuItem, S
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { useUser } from '@/hooks/use-user';
 
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { toast } = useToast();
+  const { userProfile } = useUser();
   const isActive = (path: string) => pathname === path;
 
   const handleLogout = async () => {
@@ -90,14 +92,16 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
 
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive('/book-tutor')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
-              <Link href="/book-tutor">
-                <Calendar />
-                <span>Book a Tutor</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {userProfile?.plan === 'premium' && (
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild isActive={isActive('/book-tutor')} className="transition-all hover:shadow-lg hover:shadow-primary/20">
+                <Link href="/book-tutor">
+                  <Calendar />
+                  <span>Book a Tutor</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          )}
 
         </SidebarMenu>
       </SidebarContent>

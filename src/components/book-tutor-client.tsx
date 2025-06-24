@@ -12,7 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Lock, ArrowRight, BookText } from "lucide-react";
+import { useUser } from "@/hooks/use-user";
+import Link from 'next/link';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -23,8 +25,19 @@ const formSchema = z.object({
   }),
 });
 
+function Loader() {
+    return (
+        <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+            <BookText className="h-12 w-12 text-primary animate-pulse" />
+            <p className="text-muted-foreground">Loading...</p>
+        </div>
+    )
+}
+
 export function BookTutorClient() {
   const { toast } = useToast();
+  const { userProfile, loading } = useUser();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,6 +55,40 @@ export function BookTutorClient() {
     });
     form.reset();
   }
+  
+  if (loading) {
+    return (
+        <div className="container mx-auto p-4 md:p-8 max-w-7xl h-full flex items-center justify-center">
+            <Loader />
+        </div>
+    );
+  }
+
+  if (userProfile?.plan !== 'premium') {
+      return (
+        <div className="container mx-auto p-4 md:p-8 max-w-7xl flex items-center justify-center h-full">
+            <Card className="w-full max-w-md text-center">
+                <CardHeader>
+                    <CardTitle className="flex flex-col items-center gap-4">
+                        <Lock className="h-8 w-8 text-primary" />
+                        <span className="font-headline">Premium Feature</span>
+                    </CardTitle>
+                    <CardDescription>
+                        Upgrade to Premium to schedule one-on-one tutor sessions.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                     <Button asChild>
+                        <Link href="/#pricing">
+                            Upgrade Your Plan <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                    </Button>
+                </CardContent>
+            </Card>
+        </div>
+      )
+  }
+
 
   return (
     <div className="container mx-auto p-4 md:p-8 max-w-7xl">
