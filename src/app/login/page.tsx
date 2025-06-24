@@ -37,7 +37,7 @@ export default function LoginPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, values.email, values.password);
-      if (userCredential.user.email === ADMIN_EMAIL) {
+      if (userCredential.user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
         router.push('/admin');
       } else {
         router.push('/dashboard');
@@ -55,7 +55,7 @@ export default function LoginPage() {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
-      if (result.user.email === ADMIN_EMAIL) {
+      if (result.user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
         router.push('/admin');
       } else {
         router.push('/dashboard');

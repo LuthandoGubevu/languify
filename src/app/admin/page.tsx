@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -23,7 +24,7 @@ export default function AdminPage() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         // User is authenticated, now check if they are an admin.
-        if (currentUser.email === ADMIN_EMAIL) {
+        if (currentUser.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
           setIsAdmin(true);
           setLoading(false);
         } else {
