@@ -144,7 +144,7 @@ export function LandingPage() {
                         </CardContent>
                         <CardFooter>
                             <Button asChild className="w-full">
-                                <Link href="/signup">Get Premium Access</Link>
+                                <Link href="https://paystack.shop/pay/3ljajyf3-i">Get Premium Access</Link>
                             </Button>
                         </CardFooter>
                     </Card>

@@ -117,4 +117,5 @@ export interface UserProfile {
     email: string | null;
     createdAt: any; // Firestore Timestamp
     plan: 'free' | 'premium';
+    upgradedAt?: any; // Firestore Timestamp
 }
