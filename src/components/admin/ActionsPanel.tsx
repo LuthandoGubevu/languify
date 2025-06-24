@@ -30,7 +30,7 @@ export function ActionsPanel({ items }: ActionsPanelProps) {
   const renderItems = (type: ActionItem['type']) => {
     const filteredItems = items.filter(item => item.type === type);
     if (filteredItems.length === 0) {
-        return <p className="text-sm text-muted-foreground text-center py-8">No {type.toLowerCase()} items.</p>
+        return <p className="text-sm text-foreground/60 text-center py-8">No {type.toLowerCase()} items.</p>
     }
     return (
         <div className="space-y-4">
@@ -39,8 +39,8 @@ export function ActionsPanel({ items }: ActionsPanelProps) {
                    <div className="flex-shrink-0">{getIconForType(item.type)}</div>
                    <div className="flex-grow">
                         <p className="font-semibold">{item.studentName}</p>
-                        <p className="text-sm text-muted-foreground">{item.title}</p>
-                        <p className="text-xs text-muted-foreground">{item.date}</p>
+                        <p className="text-sm text-foreground/70">{item.title}</p>
+                        <p className="text-xs text-foreground/70">{item.date}</p>
                    </div>
                    <Button variant="outline" size="sm">View</Button>
                 </div>
@@ -57,8 +57,8 @@ export function ActionsPanel({ items }: ActionsPanelProps) {
     >
         <Card>
             <CardHeader>
-                <CardTitle className="font-headline">Real-Time Actions</CardTitle>
-                <CardDescription>Manage feedback, bookings, and messages.</CardDescription>
+                <CardTitle className="font-headline text-foreground">Real-Time Actions</CardTitle>
+                <CardDescription className="text-foreground/90">Manage feedback, bookings, and messages.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Tabs defaultValue="feedback" className="w-full">

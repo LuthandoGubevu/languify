@@ -60,8 +60,8 @@ export function AdminClient() {
       animate="visible"
     >
       <div className="mb-8">
-        <h1 className="text-3xl font-bold font-headline">Hello Dumisa</h1>
-        <p className="text-muted-foreground">Here’s a snapshot of your students' progress and platform activity.</p>
+        <h1 className="text-3xl font-bold font-headline text-foreground">Hello Dumisa</h1>
+        <p className="text-foreground/90">Here’s a snapshot of your students' progress and platform activity.</p>
       </div>
       
       {/* Overview Cards */}

@@ -26,8 +26,8 @@ export function ExamEngagementChart({ engagementData, performanceData }: ExamEng
       >
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">Exam Engagement Trends</CardTitle>
-            <CardDescription>Weekly submission counts per exam paper.</CardDescription>
+            <CardTitle className="font-headline text-foreground">Exam Engagement Trends</CardTitle>
+            <CardDescription className="text-foreground/90">Weekly submission counts per exam paper.</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -59,8 +59,8 @@ export function ExamEngagementChart({ engagementData, performanceData }: ExamEng
       >
         <Card>
           <CardHeader>
-            <CardTitle className="font-headline">Exam Performance</CardTitle>
-            <CardDescription>Average scores per exam paper.</CardDescription>
+            <CardTitle className="font-headline text-foreground">Exam Performance</CardTitle>
+            <CardDescription className="text-foreground/90">Average scores per exam paper.</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>

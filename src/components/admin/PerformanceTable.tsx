@@ -48,8 +48,8 @@ export function PerformanceTable({ students }: PerformanceTableProps) {
         <CardHeader>
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                 <div>
-                    <CardTitle className="font-headline">Student Performance Snapshot</CardTitle>
-                    <CardDescription>An overview of student grades and activity.</CardDescription>
+                    <CardTitle className="font-headline text-foreground">Student Performance Snapshot</CardTitle>
+                    <CardDescription className="text-foreground/90">An overview of student grades and activity.</CardDescription>
                 </div>
                 <div className="flex gap-2">
                     <Button variant={filter === 'All' ? 'default' : 'outline'} size="sm" onClick={() => setFilter('All')}>All</Button>
@@ -63,11 +63,11 @@ export function PerformanceTable({ students }: PerformanceTableProps) {
                 <Table>
                 <TableHeader>
                     <TableRow>
-                    <TableHead>Student Name</TableHead>
-                    <TableHead className="text-center">Grade</TableHead>
-                    <TableHead className="text-center">Exams Completed</TableHead>
-                    <TableHead>Last Activity</TableHead>
-                    <TableHead>Status</TableHead>
+                    <TableHead className="text-foreground/90">Student Name</TableHead>
+                    <TableHead className="text-center text-foreground/90">Grade</TableHead>
+                    <TableHead className="text-center text-foreground/90">Exams Completed</TableHead>
+                    <TableHead className="text-foreground/90">Last Activity</TableHead>
+                    <TableHead className="text-foreground/90">Status</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -76,7 +76,7 @@ export function PerformanceTable({ students }: PerformanceTableProps) {
                         <TableCell className="font-medium">{student.name}</TableCell>
                         <TableCell className="text-center">{student.grade}%</TableCell>
                         <TableCell className="text-center">{student.examsCompleted}</TableCell>
-                        <TableCell className="text-muted-foreground">{student.lastActivity}</TableCell>
+                        <TableCell className="text-foreground/70">{student.lastActivity}</TableCell>
                         <TableCell>
                         <Badge variant="outline" className={cn('font-semibold', getStatusBadge(student.status))}>
                             {student.status}
