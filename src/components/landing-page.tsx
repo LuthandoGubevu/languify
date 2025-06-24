@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, Zap, Award, BookOpenCheck } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { Users, Zap, Award, BookOpenCheck, CheckCircle2, XCircle } from 'lucide-react';
 
 export function LandingPage() {
   const features = [
@@ -51,6 +51,92 @@ export function LandingPage() {
               </div>
             </div>
           </div>
+        </section>
+
+        <section id="pricing" className="w-full py-12 md:py-24 lg:py-32">
+            <div className="container px-4 md:px-6">
+                <div className="flex flex-col items-center justify-center space-y-4 text-center">
+                    <div className="space-y-2">
+                        <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">Pricing</div>
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">Choose Your Plan</h2>
+                        <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                            Simple, transparent pricing. Get started for free or unlock powerful new features.
+                        </p>
+                    </div>
+                </div>
+                <div className="mx-auto grid max-w-4xl items-stretch gap-8 pt-16 lg:grid-cols-2">
+                    {/* Free Card */}
+                    <Card className="flex h-full flex-col rounded-2xl border-2 border-transparent transition-all duration-300 hover:border-primary/50 hover:shadow-xl">
+                        <CardHeader className="pb-4">
+                            <CardTitle className="font-headline text-2xl">Free Tier</CardTitle>
+                            <p className="text-4xl font-bold">R0<span className="text-lg font-normal text-muted-foreground">/month</span></p>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-4">
+                            <ul className="space-y-3">
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Access to all past papers</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Practice exams & track progress</span>
+                                </li>
+                                <li className="flex items-center gap-2 text-muted-foreground">
+                                    <XCircle className="h-5 w-5" />
+                                    <span>No tutor feedback</span>
+                                </li>
+                                <li className="flex items-center gap-2 text-muted-foreground">
+                                    <XCircle className="h-5 w-5" />
+                                    <span>No 1:1 tutor sessions</span>
+                                </li>
+                            </ul>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild variant="secondary" className="w-full">
+                                <Link href="/signup">Start Practicing</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+
+                    {/* Premium Card */}
+                    <Card className="relative flex h-full flex-col rounded-2xl border-2 border-primary/50 shadow-lg transition-all duration-300 hover:shadow-primary/20 hover:border-primary">
+                       <div className="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2">
+                          <div className="rounded-full bg-primary px-4 py-1 text-sm font-semibold text-primary-foreground">
+                            Most Popular
+                          </div>
+                        </div>
+                        <CardHeader className="pb-4 pt-8">
+                            <CardTitle className="font-headline text-2xl">Premium Tier</CardTitle>
+                            <p className="text-4xl font-bold">R199<span className="text-lg font-normal text-muted-foreground">/month</span></p>
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-4">
+                            <ul className="space-y-3">
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>All Free Tier features</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Submit answers for tutor review</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Receive personalised feedback</span>
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <CheckCircle2 className="h-5 w-5 text-green-500" />
+                                    <span>Book a 1:1 tutor session per paper</span>
+                                </li>
+                            </ul>
+                        </CardContent>
+                        <CardFooter>
+                            <Button asChild className="w-full">
+                                <Link href="/signup">Get Premium Access</Link>
+                            </Button>
+                        </CardFooter>
+                    </Card>
+                </div>
+            </div>
         </section>
 
         <section id="features" className="w-full py-12 md:py-24 lg:py-32 bg-white">
