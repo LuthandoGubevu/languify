@@ -111,4 +111,10 @@ export interface PerformanceHistory {
   score: number;
 }
 
-    
+export interface UserProfile {
+    uid: string;
+    displayName: string | null;
+    email: string | null;
+    createdAt: any; // Firestore Timestamp
+    plan: 'free' | 'premium';
+}

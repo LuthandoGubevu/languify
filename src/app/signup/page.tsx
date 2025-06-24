@@ -49,6 +49,7 @@ export default function SignUpPage() {
         displayName: values.fullName,
         email: values.email,
         createdAt: serverTimestamp(),
+        plan: 'free', // Set default plan
       });
 
       router.push('/dashboard');
@@ -64,10 +65,18 @@ export default function SignUpPage() {
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-        await signInWithPopup(auth, provider);
-        // Note: You might want to check if the user is new and create a firestore doc.
-        // For now, we'll just redirect. A robust solution might use onAuthStateChanged
-        // or a Firestore function to handle new user doc creation.
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        // For Google Sign-in, we also need to create the user document with a default plan
+        await setDoc(doc(db, 'users', user.uid), {
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            createdAt: serverTimestamp(),
+            plan: 'free', // Set default plan
+        }, { merge: true }); // Use merge to avoid overwriting if doc already exists
+
         router.push('/dashboard');
     } catch (error: any) {
         toast({

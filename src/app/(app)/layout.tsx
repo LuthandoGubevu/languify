@@ -2,10 +2,8 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
-
+import { useEffect } from 'react';
+import { useUser } from '@/hooks/use-user';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/layout/sidebar';
 import { AppHeader } from '@/components/layout/app-header';
@@ -22,21 +20,20 @@ function FullPageLoader() {
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const { authUser, loading } = useUser();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        router.push('/login');
-      } else {
-        setLoading(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
+    if (!loading && !authUser) {
+      router.push('/login');
+    }
+  }, [loading, authUser, router]);
 
   if (loading) {
+    return <FullPageLoader />;
+  }
+
+  // To prevent flicker, we can show the loader while redirecting
+  if (!authUser) {
     return <FullPageLoader />;
   }
   
