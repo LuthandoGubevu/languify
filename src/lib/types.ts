@@ -1,4 +1,5 @@
 
+
 export type PracticePaperStatus = 'Not Started' | 'In Progress' | 'Completed';
 
 export interface PracticePaper {
@@ -53,7 +54,7 @@ export interface Course {
 export interface TutorSession {
     id: string;
     title: string;
-    date: string;
+    date: string; // ISO 8601 string
     status: 'Confirmed' | 'Pending';
 }
 
@@ -95,3 +96,19 @@ export interface ActionItem {
     title: string;
     date: string;
 }
+
+// Types for new Student Dashboard
+export interface Task {
+  id: string;
+  title: string;
+  dueDate: string;
+  status: 'Not Started' | 'Submitted' | 'Needs Revision' | 'Completed';
+  href: string;
+}
+
+export interface PerformanceHistory {
+  name: string;
+  score: number;
+}
+
+    
