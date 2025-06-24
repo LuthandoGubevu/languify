@@ -1,3 +1,4 @@
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -24,18 +25,34 @@ export function Header() {
                   <span className="sr-only">Toggle Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="pr-0">
+              <SheetContent side="left">
                  <SheetTitle className="sr-only">Menu</SheetTitle>
                 <Link href="/" className="flex items-center space-x-2 mb-6">
                   <BookText className="h-6 w-6 text-primary" />
                   <span className="font-bold font-headline">Languify</span>
                 </Link>
+                <div className="flex flex-col gap-4">
+                    <Button asChild variant="outline">
+                        <Link href="/login">Log In</Link>
+                    </Button>
+                    <Button asChild>
+                        <Link href="/signup">Sign Up</Link>
+                    </Button>
+                </div>
               </SheetContent>
             </Sheet>
         </div>
 
 
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <nav className="hidden items-center gap-2 text-sm md:flex">
+            <Button asChild variant="ghost">
+                <Link href="/login">Log In</Link>
+            </Button>
+            <Button asChild>
+                <Link href="/signup">Sign Up</Link>
+            </Button>
+          </nav>
         </div>
       </div>
     </header>
