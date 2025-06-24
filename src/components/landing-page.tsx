@@ -31,7 +31,7 @@ export function LandingPage() {
       <>
         <section
           className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-cover bg-center text-white"
-          style={{ backgroundImage: `url('/tutor-image.jpg')` }}
+          style={{ backgroundImage: `url('/tutor-image-opt.jpg')` }}
         >
           <div className="absolute inset-0 bg-gradient-to-tr from-purple-500 via-indigo-500 to-blue-500 opacity-40"></div>
           <div className="relative z-10 container mx-auto px-4 md:px-6">
