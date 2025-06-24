@@ -115,6 +115,12 @@ export interface UserProfile {
     uid: string;
     displayName: string | null;
     email: string | null;
+    firstName?: string;
+    lastName?: string;
+    school?: string;
+    grade?: string;
+    mobile?: string;
+    referralCode?: string;
     createdAt: any; // Firestore Timestamp
     plan: 'free' | 'premium';
     upgradedAt?: any; // Firestore Timestamp
